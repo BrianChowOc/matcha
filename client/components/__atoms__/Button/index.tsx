@@ -6,6 +6,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   color: BUTTON_TYPE;
   size: SIZE;
   reverse?: boolean;
+  type?: string;
 };
 const Button: FC<ButtonProps> = ({
   size,
@@ -14,6 +15,7 @@ const Button: FC<ButtonProps> = ({
   onClick,
   children,
   className,
+  type,
 }) => {
   const buttonStyle = cx(className, "font-bold rounded-lg py-1 px-5", {
     "bg-primary text-white": !reverse && color === BUTTON_TYPE.PRIMARY,
@@ -29,7 +31,7 @@ const Button: FC<ButtonProps> = ({
   });
 
   return (
-    <button onClick={onClick} className={buttonStyle}>
+    <button type={type} onClick={onClick} className={buttonStyle}>
       {children}
     </button>
   );
