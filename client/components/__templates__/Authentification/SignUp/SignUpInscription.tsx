@@ -19,27 +19,18 @@ const SignUpInscription: FC<SignUpInscriptionProps> = () => {
           <InputPassword rounded placeholder="Mot de passe" />
           <InputPassword rounded placeholder="Confirmer le mot de passe" />
         </div>
-        <div className="w-full px-20 flex gap-8">
-          <Button
-            className="w-full"
-            color={BUTTON_TYPE.SECONDARY}
-            size={SIZE.LARGE}
-            reverse
-          >
-            Retour
-          </Button>
-          <Button
-            className="w-full"
-            color={BUTTON_TYPE.SECONDARY}
-            size={SIZE.LARGE}
+        <div className="w-full px-20 flex justify-center gap-8">
+          <Link
+            className="flex justify-center bg-secondary text-white font-bold rounded-lg py-1 px-5 text-lg"
+            href="/onboarding/signup-check-mail"
           >
             Suivant
-          </Button>
+          </Link>
         </div>
       </div>
       <p className="mb-3">
         Déjà membre ?
-        <Link className="text-secondary ml-1" href="">
+        <Link className="text-secondary ml-1" href="/onboarding/signin">
           Se connecter
         </Link>
       </p>

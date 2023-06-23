@@ -22,12 +22,10 @@ const Input: FC<InputProps> = ({
     }
   );
 
-  if (type === "text") {
+  if (type === "text" || type === "email") {
     return (
       <div className="flex flex-col">
-        {label && (
-          <label className={type === "text" ? "font-bold" : ""}>{label}</label>
-        )}
+        {label && <label className={"font-bold"}>{label}</label>}
         <input type={type} className={inputStyle} {...props} />
       </div>
     );

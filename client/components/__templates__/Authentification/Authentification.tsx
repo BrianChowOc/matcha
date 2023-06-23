@@ -1,6 +1,3 @@
-import Button from "@/components/__atoms__/Button";
-import { SIZE } from "@/constants";
-import { BUTTON_TYPE } from "@/constants";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -14,13 +11,13 @@ const Authentification: FC<AuthentificationProps> = () => {
       <div className="flex flex-col gap-3 px-12 w-full">
         <Link
           className="flex justify-center bg-secondary text-white font-bold rounded-lg py-1 px-5 text-lg"
-          href="/onboarding/SignIn"
+          href="/onboarding/signin"
         >
           Se connecter
         </Link>
         <Link
           className="flex justify-center bg-primary text-white font-bold rounded-lg py-1 px-5 text-lg"
-          href="/onboarding/SignUpIncription"
+          href="/onboarding/signup-incription"
         >
           Créer un compte
         </Link>

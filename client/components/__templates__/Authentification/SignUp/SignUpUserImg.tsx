@@ -18,26 +18,23 @@ const SignUpUserImg: FC<SignUpUserImgProps> = () => {
           <DragZone />
         </div>
         <div className="flex gap-12 mx-12 mt-4 px-20">
-          <Button
-            className="whitespace-nowrap"
-            reverse
-            color={BUTTON_TYPE.SECONDARY}
-            size={SIZE.LARGE}
+          <Link
+            className="flex justify-center font-bold rounded-lg py-1 px-5 text-lg bg-white border border-secondary text-secondary"
+            href="/onboarding/signup-bio"
           >
             Retour
-          </Button>
-          <Button
-            className="whitespace-nowrap"
-            color={BUTTON_TYPE.SECONDARY}
-            size={SIZE.LARGE}
+          </Link>
+          <Link
+            className="flex justify-center bg-secondary text-white font-bold rounded-lg py-1 px-5 text-lg"
+            href="/"
           >
             Terminer
-          </Button>
+          </Link>
         </div>
       </div>
       <p className="mb-3">
         Déjà membre ?
-        <Link className="text-secondary ml-1" href="">
+        <Link className="text-secondary ml-1" href="/onboarding/signin">
           Se connecter
         </Link>
       </p>

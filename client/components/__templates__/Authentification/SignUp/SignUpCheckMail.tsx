@@ -18,26 +18,17 @@ const SignUpCheckMail: FC<SignUpCheckMailProps> = () => {
           <Input />
         </div>
         <div className="flex gap-12 mx-12 mt-4">
-          <Button
-            className="whitespace-nowrap"
-            reverse
-            color={BUTTON_TYPE.SECONDARY}
-            size={SIZE.LARGE}
-          >
-            Renvoyer le code{" "}
-          </Button>
-          <Button
-            className="whitespace-nowrap"
-            color={BUTTON_TYPE.SECONDARY}
-            size={SIZE.LARGE}
+          <Link
+            className="flex justify-center bg-secondary text-white font-bold rounded-lg py-1 px-5 text-lg"
+            href="/onboarding/signup-profil"
           >
             Soumettre le code
-          </Button>
+          </Link>
         </div>
       </div>
       <p className="mb-3">
         Déjà membre ?
-        <Link className="text-secondary ml-1" href="">
+        <Link className="text-secondary ml-1" href="/onboarding/signin">
           Se connecter
         </Link>
       </p>

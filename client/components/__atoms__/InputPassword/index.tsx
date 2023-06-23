@@ -20,6 +20,7 @@ const InputPassword: FC<InputProps> = ({ rounded, ...props }) => {
     <div className={inputStyle}>
       <input
         type={showPassword ? "text" : "password"}
+        name="password"
         {...props}
         autoFocus={false}
         className="focus:outline-none placeholder:italic"
@@ -30,7 +31,7 @@ const InputPassword: FC<InputProps> = ({ rounded, ...props }) => {
         alt="eye-icon"
         width={24}
         height={24}
-        className="mr-5"
+        className="mr-5 cursor-pointer"
       />
     </div>
   );

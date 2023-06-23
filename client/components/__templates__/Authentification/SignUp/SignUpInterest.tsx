@@ -12,7 +12,7 @@ const SignUpInterest: FC<SignUpInterestProps> = () => {
     <div className="flex flex-col items-center justify-between h-full">
       <div className="flex flex-col gap-8 w-full px-20">
         <p>
-          PROFIL - <span className="text-primary">Etape 2/4</span>
+          INTÉRÊTS - <span className="text-primary">Etape 2/4</span>
         </p>
         <div className="grid grid-cols-3 gap-3 mt-4">
           {interests.map((interest: string) => {
@@ -29,26 +29,23 @@ const SignUpInterest: FC<SignUpInterestProps> = () => {
           })}
         </div>
         <div className="flex gap-12 mx-12 mt-4">
-          <Button
-            className="whitespace-nowrap"
-            reverse
-            color={BUTTON_TYPE.SECONDARY}
-            size={SIZE.LARGE}
+          <Link
+            className="flex justify-center font-bold rounded-lg py-1 px-5 text-lg bg-white border border-secondary text-secondary"
+            href="/onboarding/signup-profil"
           >
             Retour
-          </Button>
-          <Button
-            className="whitespace-nowrap"
-            color={BUTTON_TYPE.SECONDARY}
-            size={SIZE.LARGE}
+          </Link>
+          <Link
+            className="flex justify-center bg-secondary text-white font-bold rounded-lg py-1 px-5 text-lg"
+            href="/onboarding/signup-bio"
           >
             Suivant
-          </Button>
+          </Link>
         </div>
       </div>
       <p className="mb-3">
         Déjà membre ?
-        <Link className="text-secondary ml-1" href="">
+        <Link className="text-secondary ml-1" href="/onboarding/signin">
           Se connecter
         </Link>
       </p>

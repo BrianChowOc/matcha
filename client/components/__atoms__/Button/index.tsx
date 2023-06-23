@@ -6,7 +6,6 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   color?: BUTTON_TYPE;
   size?: SIZE;
   reverse?: boolean;
-  type?: string;
 };
 const Button: FC<ButtonProps> = ({
   size = SIZE.MEDIUM,
