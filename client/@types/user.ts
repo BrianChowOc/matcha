@@ -3,6 +3,6 @@ export type User = {
   lastname: string;
   age: number;
   isConnected: boolean;
-  image: string;
+  picture: string;
   genre: string;
 };
