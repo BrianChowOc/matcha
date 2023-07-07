@@ -1,5 +1,5 @@
-import { FC, RefObject } from "react";
-import UserBadge from "@/components/__atoms__/UserBadge";
+import { FC } from "react";
+import UserBadge from "@/components/molecules/UserBadge";
 import { User } from "@/@types/user";
 
 import ChevronDown from "../../../public/img/chevron-down.svg";

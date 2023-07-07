@@ -1,34 +1,37 @@
-import Button from "@/components/__atoms__/Button";
-import Input from "@/components/__atoms__/Input";
-import { BUTTON_TYPE, SIZE } from "@/constants";
 import Link from "next/link";
 import { FC } from "react";
-import DragZone from "@/components/__atoms__/DragZone";
 
-type SignUpUserImgProps = {};
+type SignUpBioProps = {};
 
-const SignUpUserImg: FC<SignUpUserImgProps> = () => {
+const SignUpBio: FC<SignUpBioProps> = () => {
   return (
     <div className="flex flex-col items-center justify-between h-full">
       <div className="flex flex-col gap-8 w-full">
         <p className="px-20">
-          PHOTO DE PROFIL - <span className="text-primary">Etape 4/4</span>
+          BIOGRAPHIE - <span className="text-primary">Etape 3/4</span>
         </p>
-        <div className="mx-6 h-48">
-          <DragZone />
+        <div className="flex justify-center mt-4 h-full">
+          <textarea
+            className="border border-1 rounded-xl py-3 px-6 placeholder:italic placeholder:text-black placeholder:text-lg"
+            id="description"
+            name="description"
+            rows={6}
+            cols={50}
+            placeholder="Description"
+          ></textarea>
         </div>
         <div className="flex gap-12 mx-12 mt-4 px-20">
           <Link
             className="flex justify-center font-bold rounded-lg py-1 px-5 text-lg bg-white border border-secondary text-secondary"
-            href="/onboarding/signup-bio"
+            href="/onboarding/signup-interest"
           >
             Retour
           </Link>
           <Link
             className="flex justify-center bg-secondary text-white font-bold rounded-lg py-1 px-5 text-lg"
-            href="/"
+            href="/onboarding/signup-user-img"
           >
-            Terminer
+            Suivant
           </Link>
         </div>
       </div>
@@ -42,4 +45,4 @@ const SignUpUserImg: FC<SignUpUserImgProps> = () => {
   );
 };
 
-export default SignUpUserImg;
+export default SignUpBio;

@@ -1,7 +1,6 @@
-import { AuthLayout } from "@/components/Layout/AuthLayout";
-import Authentification from "@/components/__templates__/Authentification/Authentification";
+import { AuthLayout } from "@/components/templates/AuthLayout";
+import Authentification from "@/components/molecules/Authentification";
 import Head from "next/head";
-
 const OnBoarding = () => {
   return (
     <>

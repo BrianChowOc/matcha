@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { FC, useEffect, useRef, useState } from "react";
-import { MemberLoggedPanel } from "../../__molecules__/MemberLoggedPanel";
+import { FC, useRef, useState } from "react";
+import { MemberLoggedPanel } from "@/components/molecules/MemberLoggedPanel";
 import { User } from "@/@types/user";
-import OverlayMenu from "@/components/__molecules__/OverlayMenu";
+import OverlayMenu from "@/components/molecules/OverlayMenu";
 import { useOnClickOutside } from "usehooks-ts";
 
 type HeaderProps = {

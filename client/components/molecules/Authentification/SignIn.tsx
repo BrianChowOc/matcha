@@ -1,6 +1,6 @@
-import Button from "@/components/__atoms__/Button";
-import Input from "@/components/__atoms__/Input";
-import InputPassword from "@/components/__atoms__/InputPassword";
+import Button from "@/components/atoms/Button";
+import Input from "@/components/molecules/Input";
+import InputPassword from "@/components/molecules/InputPassword";
 import { BUTTON_TYPE, SIZE } from "@/constants";
 import Link from "next/link";
 import { FC } from "react";

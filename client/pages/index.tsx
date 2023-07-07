@@ -1,12 +1,10 @@
-import { ReactElement } from "react";
-import Layout from "../components/Layout";
-import Button from "@/components/__atoms__/Button";
 import { BUTTON_TYPE, SIZE } from "@/constants";
-import Input from "@/components/__atoms__/Input";
-import Signin from "@/components/__molecules__/Signin";
-import InputPassword from "@/components/__atoms__/InputPassword";
-import OverlayMenu from "@/components/__molecules__/OverlayMenu";
-import { Header } from "@/components/__organims__/Header";
+import Input from "@/components/molecules/Input";
+import InputPassword from "@/components/molecules/InputPassword";
+import OverlayMenu from "@/components/molecules/OverlayMenu";
+import { Header } from "@/components/organisms/Header";
+import Button from "@/components/atoms/Button";
+import Signin from "@/components/molecules/Authentification/Signin";
 
 const MOCK_USER = {
   firstname: "JOHN",

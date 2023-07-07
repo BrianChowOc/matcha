@@ -1,6 +1,5 @@
 import { FC, InputHTMLAttributes, useState } from "react";
 import { cx } from "@emotion/css";
-import IconEye from "../../../public/img/eye-icon.svg";
 import Image from "next/image";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {

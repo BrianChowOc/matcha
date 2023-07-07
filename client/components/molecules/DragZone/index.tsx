@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import { FC, InputHTMLAttributes } from "react";
 import { useDropzone } from "react-dropzone";
 

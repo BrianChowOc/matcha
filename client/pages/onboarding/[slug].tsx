@@ -1,14 +1,14 @@
-import { AuthLayout } from "@/components/Layout/AuthLayout";
-import SignUpInscription from "@/components/__templates__/Authentification/SignUp/SignUpInscription";
+import { AuthLayout } from "@/components/templates/AuthLayout";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import SignIn from "../../components/__templates__/Authentification/SignIn";
-import SignUpCheckMail from "@/components/__templates__/Authentification/SignUp/SignUpCheckMail";
-import SignUpInterest from "@/components/__templates__/Authentification/SignUp/SignUpInterest";
-import SignUpProfil from "@/components/__templates__/Authentification/SignUp/SignUpProfil";
-import SignUpBio from "@/components/__templates__/Authentification/SignUp/SignUpBio";
-import SignUpUserImg from "@/components/__templates__/Authentification/SignUp/SignUpUserImg";
-import ForgotPassword from "@/components/__templates__/Authentification/ForgotPassword";
+import SignIn from "@/components/molecules/Authentification/SignIn";
+import SignUpInscription from "@/components/molecules/Authentification/SignUp/SignUpInscription";
+import SignUpCheckMail from "@/components/molecules/Authentification/SignUp/SignUpCheckMail";
+import SignUpInterest from "@/components/molecules/Authentification/SignUp/SignUpInterest";
+import SignUpProfil from "@/components/molecules/Authentification/SignUp/SignUpProfil";
+import SignUpBio from "@/components/molecules/Authentification/SignUp/SignUpBio";
+import SignUpUserImg from "@/components/molecules/Authentification/SignUp/SignUpUserImg";
+import ForgotPassword from "@/components/molecules/Authentification/ForgotPassword";
 
 const PageComponents = {
   signin: () => <SignIn />,
@@ -39,6 +39,7 @@ const OnBoarding = () => {
       </>
     );
   }
+  return null;
 };
 
 export default OnBoarding;

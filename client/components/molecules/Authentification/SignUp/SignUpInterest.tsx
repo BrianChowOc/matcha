@@ -1,6 +1,4 @@
-import Button from "@/components/__atoms__/Button";
-import Input from "@/components/__atoms__/Input";
-import { BUTTON_TYPE, SIZE } from "@/constants";
+import Input from "@/components/molecules/Input";
 import Link from "next/link";
 import { FC } from "react";
 import interests from "../../../../data/interests.js";

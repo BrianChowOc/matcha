@@ -1,5 +1,5 @@
 import { User } from "@/@types/user";
-import UserBadge from "@/components/__atoms__/UserBadge";
+import UserBadge from "@/components/molecules/UserBadge";
 import { FC, RefObject } from "react";
 import UserIcon from "../../../public/img/user-solid.svg";
 import GlassIcon from "../../../public/img/magnifying-glass-solid.svg";

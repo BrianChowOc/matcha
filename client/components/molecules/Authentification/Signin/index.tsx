@@ -1,8 +1,8 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
-import { BUTTON_TYPE } from "../../../constants";
-import Input from "@/components/__atoms__/Input";
-import Button from "@/components/__atoms__/Button";
-import InputPassword from "@/components/__atoms__/InputPassword";
+import { BUTTON_TYPE } from "../../../../constants";
+import Input from "@/components/molecules/Input";
+import Button from "@/components/atoms/Button";
+import InputPassword from "@/components/molecules/InputPassword";
 import Link from "next/link";
 
 const Signin: FC = () => {
