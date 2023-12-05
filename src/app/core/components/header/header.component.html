@@ -1,0 +1,70 @@
+<mat-toolbar>
+  <span class="example-spacer">MATCHA</span>
+  <button
+    mat-icon-button
+    class="example-icon home-icon"
+    aria-label="Icon-button with home icon"
+  >
+    <mat-icon>home</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    class="example-icon chat-bubble-icon"
+    aria-label="Icon-button with chat bubble icon"
+  >
+    <mat-icon>chat_bubble</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    class="example-icon favorite-icon"
+    aria-label="Icon-button with heart icon"
+  >
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    class="example-icon circle_notifications-icon"
+    aria-label="Icon-button with circle_notifications icon"
+  >
+    <mat-icon>circle_notifications</mat-icon>
+  </button>
+  <button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon>keyboard_arrow_down</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <div
+      class="menu-item center align-items header-menu"
+    >
+      <img class="img-avatar-header" width="85px" [src]="user.imageUrl" />
+      <div class="text-header">
+        <div [ngStyle]="{ color: '#2A2E43', 'font-weight': 'bold' }">
+          {{ user.firstname | uppercase }} {{ user.lastname | uppercase }}
+        </div>
+        <div [ngStyle]="{ color: '#8A98BA' }">{{ user.sex | titlecase }}</div>
+        <div [ngStyle]="{ color: '#2A2E43' }">{{ user.birth }}</div>
+      </div>
+    </div>
+    <button mat-menu-item class="menu-item space-between">
+      <div class="icon-item-1">
+        <mat-icon [ngStyle]="{ color: '#C4CBDC' }">account_circle</mat-icon>
+        <span>My profil</span>
+      </div>
+      <mat-icon class="icon-item-2">keyboard_arrow_right</mat-icon>
+    </button>
+    <button mat-menu-item class="menu-item space-between">
+      <mat-icon class="icon-item-1" [ngStyle]="{ color: '#C4CBDC' }"
+        >search</mat-icon
+      >
+      <span class="text-item">Advanced search</span>
+      <mat-icon class="icon-item-2">keyboard_arrow_right</mat-icon>
+    </button>
+    <button
+      mat-menu-item
+      class="menu-item right"
+      [ngStyle]="{ color: '#2A2E43' }"
+    >
+      <mat-icon>arrow_forward</mat-icon>
+      <span class="text-item">Log out</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
