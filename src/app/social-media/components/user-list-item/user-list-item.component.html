@@ -1,0 +1,29 @@
+<mat-card class="width-full">
+  <mat-card-content>
+    <div class="display-flex align-items-center">
+      <img class="border-radius-50" [src]="user.imageUrl" width="115px" />
+      <div class="margin-left-5">
+        <div class="font-weight-bold">
+         {{ user.firstname | titlecase }} {{ user.lastname | titlecase }}
+        </div>
+        <div class="color-primary">{{ user.sex | titlecase }}</div>
+        <div>{{ user.birth }}</div>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-footer>
+    <mat-card-actions class="justify-content-right">
+      <button
+        class="text-white display-flex"
+        mat-raised-button
+        color="primary"
+        (click)="onProfile()"
+      >
+        <span class="order-0">View profile</span>
+        <mat-icon class="order-1 justify-self-end margin-left-5"
+          >account_circle</mat-icon
+        >
+      </button>
+    </mat-card-actions>
+  </mat-card-footer>
+</mat-card>

@@ -2,9 +2,6 @@
   flex: 1 1 auto;
 }
 
-.menu-item {
-  display: flex;
-}
 
 .header-menu {
   background-color: #F7F7FA;
@@ -21,36 +18,10 @@
   margin-left: 10px;
 }
 
-.space-between {
-  justify-content: space-between;
-  
-}
-
-.align-items {
-  align-items: center;
-}
-
-.right {
-  justify-content: right;
-}
-
-.center {
-  justify-content: center;
-}
-
-.icon-item-1 {
- order: 0;
- display: flex;
-}
 .text-item {
   padding-right: 20px;
 }
 
-.icon-item-2 {
-  order: 1;
-  justify-self: end;
-}
-
-.img-avatar-header {
-  border-radius: 50%;
+.justify-content-right {
+  justify-content: right;
 }
