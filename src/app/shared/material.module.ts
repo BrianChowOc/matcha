@@ -26,7 +26,7 @@ import {MatMenuModule} from '@angular/material/menu';
     MatRadioModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatMenuModule
+    MatMenuModule,
   ],
 })
 export class MaterialModule {}
