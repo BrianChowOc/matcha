@@ -10,11 +10,10 @@ import { filter } from 'rxjs';
 export class AppComponent {
   title = 'matcha';
   showHeader!: boolean;
-  
+
   constructor(
     private router: Router,
   ) {
-    console.log(router.url);
     this.router.events.pipe(
       filter(event=> event instanceof NavigationEnd)
     ).subscribe((event) => {

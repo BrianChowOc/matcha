@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {CdkStepperModule} from '@angular/cdk/stepper';
+import { CdkStepperModule } from '@angular/cdk/stepper';
 import { ConnexionLayoutComponent } from './components/connexion-layout/connexion-layout.component';
 import { Step1Component } from './components/registration/step-1/step-1.component';
 import { Step2Component } from './components/registration/step-2/step-2.component';
@@ -12,7 +12,7 @@ import { ConnexionRoutingModule } from './connexion-routing.module';
 import { BoardingComponent } from './components/boarding/boarding.component';
 import { LoginComponent } from './components/login/login.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-
+import { CheckboxService } from './services/checkbox.service';
 
 @NgModule({
   declarations: [
@@ -23,13 +23,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
     Step4Component,
     Step5Component,
     BoardingComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     CommonModule,
     CdkStepperModule,
     ConnexionRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+  ],
+  providers: [CheckboxService],
 })
-export class ConnexionModule { }
+export class ConnexionModule {}

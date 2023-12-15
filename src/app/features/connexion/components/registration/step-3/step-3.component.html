@@ -1,1 +1,36 @@
-<p>step-3 works!</p>
+<div class="display-flex flex-direction-column height-100">
+  <div class="margin-bottom-25">
+    INTERESTS - <span class="color-secondary">Step 2/4</span>
+  </div>
+  <div class="display-flex flex-direction-column height-100 gap-30">
+    <div fxLayout="row" fxLayoutAlign="start start">
+      <div
+        *ngFor="let checkboxRow of checkboxRows"
+        fxLayout="column"
+        fxLayoutGap="5px"
+      >
+        <mat-checkbox *ngFor="let checkbox of checkboxRow">{{
+          checkbox.label
+        }}</mat-checkbox>
+      </div>
+    </div>
+    <div class="display-flex justify-content-space-around">
+      <button mat-flat-button color="primary" class="color-white min-width-130">
+        Previous
+      </button>
+      <button mat-flat-button color="primary" class="color-white min-width-130">
+        Next
+      </button>
+    </div>
+  </div>
+  <div
+    class="align-self-center justify-self-end margin-top-auto margin-bottom-10"
+  >
+    <div>
+      Already a member ?
+      <a routerLink="/connexion" class="color-primary text-decoration-underline"
+        >To log in</a
+      >
+    </div>
+  </div>
+</div>

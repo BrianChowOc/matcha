@@ -92,6 +92,10 @@ button {
     background-color: blue;
 }
 
+.font-size-12 {
+  font-size: 12px;
+}
+
 .font-size-18 {
   font-size: 18px;
 }
@@ -141,14 +145,18 @@ button {
     align-items: center;
   }
 
+  .align-items-end {
+    align-items: end;
+  }
+ 
+  .align-self-start {
+    align-self: start;
+  }
+
   .align-self-center {
     align-self: center;
   }
 
-  .align-items-end {
-    align-items: end;
-  }
-  
   .margin-top-auto {
     margin-top: auto;
   }
@@ -240,4 +248,20 @@ button {
 
 .align-self-flex-end {
   align-self: flex-end;
+}
+
+.min-width-130 {
+  min-width: 130px !important;
+}
+
+.gap-5 {
+  gap: 5;
+}
+
+.gap-30 {
+  gap: 30px;
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
 }
