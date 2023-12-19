@@ -1,0 +1,263 @@
+<app-connexion-layout>
+  <mat-horizontal-stepper #stepper>
+    <mat-step [stepControl]="step1Form">
+      <ng-template matStepLabel>INFORMATIONS</ng-template>
+      <ng-template matStepContent>
+        <form
+          [formGroup]="step1Form"
+          class="display-flex flex-direction-column align-items-center height-100"
+        >
+          <div class="display-flex flex-direction-column width-100">
+            <mat-form-field appearance="fill">
+              <mat-label>Username</mat-label>
+              <input type="text" matInput formControlName="username" />
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+              <input type="email" matInput formControlName="email" />
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+              <input type="password" matInput formControlName="password" />
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="margin-bottom-25">
+              <mat-label>Confirm password</mat-label>
+              <input
+                type="password"
+                matInput
+                formControlName="confirmPassword"
+              />
+            </mat-form-field>
+          </div>
+        </form>
+
+        <div class="display-flex gap-30 justify-content-center">
+          <button
+            mat-flat-button
+            color="primary"
+            class="color-white"
+            matStepperNext
+          >
+            Next
+          </button>
+        </div>
+      </ng-template>
+    </mat-step>
+    <mat-step [stepControl]="step2Form">
+      <form [formGroup]="step2Form">
+        <ng-template matStepLabel>PROFIL</ng-template>
+        <ng-template matStepContent>
+          <div class="display-flex flex-direction-column height-100">
+            <div class="display-flex flex-direction-column height-100 gap-30">
+              <div class="display-flex flex-direction-column">
+                <mat-label class="font-weight-bold">Genre</mat-label>
+                <mat-radio-group formControlName="genre">
+                  <mat-radio-button value="man">Man</mat-radio-button>
+                  <mat-radio-button value="woman">Woman</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="display-flex flex-direction-column">
+                <mat-label class="font-weight-bold"
+                  >Sexual orientation</mat-label
+                >
+                <mat-radio-group formControlName="sexualOrientation">
+                  <mat-radio-button value="heterosexual"
+                    >Heterosexual</mat-radio-button
+                  >
+                  <mat-radio-button value="homosexual"
+                    >Homosexual</mat-radio-button
+                  >
+                  <mat-radio-button value="bisexual">Bisexual</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <mat-form-field>
+                <mat-label>Date of birth</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  formControlName="birth"
+                />
+                <mat-hint>DD/MM/YYYY</mat-hint>
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>City</mat-label>
+                <input type="text" matInput formControlName="city" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="display-flex gap-30 justify-content-center margin-top-20">
+            <button
+              mat-stroked-button
+              color="primary"
+              class="color-primary min-width-130 border-color-primary"
+              matStepperPrevious
+            >
+              Previous
+            </button>
+            <button
+              mat-flat-button
+              color="primary"
+              class="color-white min-width-130"
+              matStepperNext
+              (click)="onTest()"
+            >
+              Next
+            </button>
+          </div>
+        </ng-template>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="step3Form">
+      <form [formGroup]="step3Form">
+        <ng-template matStepLabel>INTERESTS</ng-template>
+        <ng-template matStepContent>
+          <div
+            class="display-flex flex-direction-column height-100 align-items-center margin-top-20"
+          >
+            <div class="display-flex flex-direction-column height-100 gap-30">
+              <div fxLayout="row" fxLayoutAlign="start start">
+                <div
+                  *ngFor="let checkboxRow of checkboxRows"
+                  fxLayout="column"
+                  fxLayoutGap="5px"
+                >
+                  <mat-checkbox
+                    *ngFor="let checkbox of checkboxRow"
+                    [formControlName]="checkbox.label.toLowerCase()"
+                    >{{ checkbox.label }}</mat-checkbox
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="display-flex gap-30 justify-content-center margin-top-20">
+            <button
+              mat-stroked-button
+              color="primary"
+              class="color-primary min-width-130 border-color-primary"
+              matStepperPrevious
+            >
+              Previous
+            </button>
+            <button
+              mat-flat-button
+              color="primary"
+              class="color-white min-width-130"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        </ng-template>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="step4Ctrl">
+      <form>
+        <ng-template matStepLabel>BIOGRAPHIE</ng-template>
+        <ng-template matStepContent>
+          <div class="display-flex flex-direction-column height-100">
+            <div class="display-flex flex-direction-column height-100 gap-30">
+              <mat-form-field appearance="fill">
+                <textarea
+                  class="text-area-height"
+                  matInput
+                  placeholder="Description"
+                  [formControl]="step4Ctrl"
+                ></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="display-flex gap-30 justify-content-center margin-top-20">
+            <button
+              mat-stroked-button
+              color="primary"
+              class="color-primary min-width-130 border-color-primary"
+              matStepperPrevious
+            >
+              Previous
+            </button>
+            <button
+              mat-flat-button
+              color="primary"
+              class="color-white min-width-130"
+              matStepperNext
+            >
+              Next
+            </button>
+          </div>
+        </ng-template>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="step5Ctrl">
+      <form>
+        <ng-template matStepLabel>PROFIL PICTURE</ng-template>
+        <ng-template matStepContent>
+          <div
+            class="display-flex flex-direction-column height-100 align-items-center"
+          >
+            <div class="display-flex flex-direction-column height-100 gap-30">
+              <div
+                class="picture-container display-flex justify-content-center align-items-center"
+              >
+                <div
+                  class="display-flex flex-direction-column justify-content-center align-items-center height-100 width-100"
+                >
+                  <div
+                    class="font-weight-bold text-decoration-underline font font-size-20"
+                  >
+                    Upload a profil picture
+                  </div>
+                  <div class="color-secondary font-size-12">
+                    .png or .jpg 1 Mo Maximum
+                  </div>
+                </div>
+                <input
+                  type="file"
+                  placeholder="Choisir un fichier"
+                  name="fileInput"
+                  class="input-picture"
+                  [formControl]="step5Ctrl"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="display-flex gap-30 justify-content-center margin-top-20">
+            <button
+              mat-stroked-button
+              color="primary"
+              class="color-primary min-width-130 border-color-primary"
+              matStepperPrevious
+            >
+              Previous
+            </button>
+            <button
+              mat-flat-button
+              color="primary"
+              class="color-white min-width-130"
+              (click)="onTest()"
+            >
+              Done
+            </button>
+          </div>
+        </ng-template>
+      </form>
+    </mat-step>
+  </mat-horizontal-stepper>
+  <div class="align-self-center margin-top-auto margin-bottom-10">
+    <div>
+      Already a member ?
+      <a routerLink="/connexion" class="color-primary text-decoration-underline"
+        >To log in</a
+      >
+    </div>
+  </div>
+</app-connexion-layout>

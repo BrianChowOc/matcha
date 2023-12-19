@@ -1,5 +1,19 @@
+.image-background {
+    width: 75%;  
+}
+
+.content-connexion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .color-white {
     color: white !important;
+}
+
+.text-area-height {
+    height: 200px !important;
 }
 
 .picture-container {
@@ -9,7 +23,7 @@
     position: relative;
 }
 
-input {
+.input-picture {
   height: 100%;
   width: 100%;
   opacity: 0;

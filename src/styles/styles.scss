@@ -157,6 +157,10 @@ button {
     align-self: center;
   }
 
+  .margin-top-20 {
+    margin-top: 20px;
+  }
+
   .margin-top-auto {
     margin-top: auto;
   }
@@ -264,4 +268,8 @@ button {
 
 .cursor-pointer {
   cursor: pointer !important;
+}
+
+.border-color-primary {
+  border-color: #73b1c0 !important;
 }
