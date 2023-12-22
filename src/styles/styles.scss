@@ -108,12 +108,24 @@ button {
   width: 100%;
 }
 
+.width-90 {
+  width: 90%;
+}
+
 .width-75 {
   width: 75%;
 }
 
+.width-80 {
+  width: 80%;
+}
+
 .width-50 {
   width: 50%;
+}
+
+.height-auto {
+  height: auto;
 }
 
 .height-50 {
@@ -128,10 +140,22 @@ button {
   height: 100%;
 }
 
+.display-block {
+  display: block;
+}
+
 .display-flex {
     display: flex;
-  }
-  
+  }  
+
+.flex-1 {
+    flex: 1;
+}
+
+.flex-2 {
+    flex: 2
+}
+
 .flex-direction-column {
   flex-direction: column;
 }
@@ -163,6 +187,18 @@ button {
 
   .margin-top-auto {
     margin-top: auto;
+  }
+
+  .padding-5 {
+    padding: 5px;
+  }
+
+  .padding-10 {
+    padding: 10px;
+  }
+
+  .padding-30 {
+    padding: 30px;
   }
 
   .justify-content-right {
@@ -213,9 +249,25 @@ button {
   color: #999999;
 }
 
+.border-radius-15 {
+  border-radius: 15px;
+}
+
+.border-radius-20 {
+  border-radius: 20px;
+}
+
+.border-radius-30 {
+  border-radius: 30px;
+}
+
 .border-radius-50 {
     border-radius: 50%;
   }
+
+.overflow-hidden {
+  overflow: hidden;
+}
 
 .flex-wrap-wrap {
     flex-wrap: wrap;
@@ -238,12 +290,28 @@ button {
   margin: 10px
 }
 
+.margin-50 {
+  margin: 50px;
+}
+
+.margin-rigth-50 {
+  margin-right: 50px;
+}
+
 .margin-bottom-10 {
   margin-bottom: 10px;
 }
 
 .margin-bottom-25 {
   margin-bottom: 25px;
+}
+
+.margin-bottom-50 {
+  margin-bottom: 50px;
+}
+
+.margin-bottom-100 {
+  margin-bottom: 100px;
 }
 
 .text-decoration-underline {
@@ -259,7 +327,11 @@ button {
 }
 
 .gap-5 {
-  gap: 5;
+  gap: 5px;
+}
+
+.gap-10 {
+  gap: 10px;
 }
 
 .gap-30 {
@@ -272,4 +344,8 @@ button {
 
 .border-color-primary {
   border-color: #73b1c0 !important;
+}
+
+.border-color-secondary {
+  border-color: #ffa384 !important;
 }

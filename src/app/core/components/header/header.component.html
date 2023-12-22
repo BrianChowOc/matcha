@@ -35,10 +35,14 @@
     <div
       class="display-flex justify-content-center align-items-center header-menu"
     >
-      <img class="border-radius-50" width="85px" [src]="user.imageUrl" />
+      <div
+        class="background-color-blue img-size overflow-hidden border-radius-50"
+      >
+        <img class="display-block height-100 width-100" [src]="user.imageUrl" />
+      </div>
       <div class="text-header">
         <div class="font-weight-bold">
-          {{ user.firstname | uppercase }} {{ user.lastname | uppercase }}
+          {{ user.username | uppercase }}
         </div>
         <div [ngStyle]="{ color: '#8A98BA' }">{{ user.sex | titlecase }}</div>
         <div [ngStyle]="{ color: '#2A2E43' }">{{ user.birth }}</div>
@@ -49,7 +53,7 @@
         <mat-icon [ngStyle]="{ color: '#C4CBDC' }">account_circle</mat-icon>
         <span>My profil</span>
       </div>
-      <mat-icon class=" order-1 justify-self-end">keyboard_arrow_right</mat-icon>
+      <mat-icon class="order-1 justify-self-end">keyboard_arrow_right</mat-icon>
     </button>
     <button mat-menu-item class="display-flex space-between">
       <mat-icon class="order-0 display-flex" [ngStyle]="{ color: '#C4CBDC' }"

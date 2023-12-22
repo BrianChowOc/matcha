@@ -16,6 +16,11 @@ const routes: Routes = [
         (m) => m.ConnexionModule
       ),
   },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('./features/profile/profile.module').then((m) => m.ProfileModule),
+  },
 ];
 
 @NgModule({

@@ -1,7 +1,9 @@
 <app-connexion-layout>
   <mat-horizontal-stepper #stepper>
     <mat-step [stepControl]="step1Form">
-      <ng-template matStepLabel>INFORMATIONS</ng-template>
+      <div class="margin-bottom-25">
+        INFORMATION - <span class="color-secondary">Step 1/5</span>
+      </div>
       <ng-template matStepContent>
         <form
           [formGroup]="step1Form"
@@ -44,8 +46,10 @@
       </ng-template>
     </mat-step>
     <mat-step [stepControl]="step2Form">
+      <div class="margin-bottom-25">
+        PROFIL - <span class="color-secondary">Step 2/5</span>
+      </div>
       <form [formGroup]="step2Form">
-        <ng-template matStepLabel>PROFIL</ng-template>
         <ng-template matStepContent>
           <div class="display-flex flex-direction-column height-100">
             <div class="display-flex flex-direction-column height-100 gap-30">
@@ -114,8 +118,10 @@
       </form>
     </mat-step>
     <mat-step [stepControl]="step3Form">
+      <div class="margin-bottom-25">
+        INTERESTS - <span class="color-secondary">Step 3/5</span>
+      </div>
       <form [formGroup]="step3Form">
-        <ng-template matStepLabel>INTERESTS</ng-template>
         <ng-template matStepContent>
           <div
             class="display-flex flex-direction-column height-100 align-items-center margin-top-20"
@@ -125,7 +131,7 @@
                 <div
                   *ngFor="let checkboxRow of checkboxRows"
                   fxLayout="column"
-                  fxLayoutGap="5px"
+                  fxLayoutGap="0px"
                 >
                   <mat-checkbox
                     *ngFor="let checkbox of checkboxRow"
@@ -159,8 +165,10 @@
       </form>
     </mat-step>
     <mat-step [stepControl]="step4Ctrl">
+      <div class="margin-bottom-25">
+        BIOGRAPHIE - <span class="color-secondary">Step 4/5</span>
+      </div>
       <form>
-        <ng-template matStepLabel>BIOGRAPHIE</ng-template>
         <ng-template matStepContent>
           <div class="display-flex flex-direction-column height-100">
             <div class="display-flex flex-direction-column height-100 gap-30">
@@ -197,8 +205,10 @@
       </form>
     </mat-step>
     <mat-step [stepControl]="step5Ctrl">
+      <div class="margin-bottom-25">
+        PROFIL PICTURE - <span class="color-secondary">Step 5/5</span>
+      </div>
       <form>
-        <ng-template matStepLabel>PROFIL PICTURE</ng-template>
         <ng-template matStepContent>
           <div
             class="display-flex flex-direction-column height-100 align-items-center"
@@ -252,10 +262,12 @@
       </form>
     </mat-step>
   </mat-horizontal-stepper>
-  <div class="align-self-center margin-top-auto margin-bottom-10">
+  <div class="align-self-center margin-top-auto margin-bottom-25">
     <div>
       Already a member ?
-      <a routerLink="/connexion" class="color-primary text-decoration-underline"
+      <a
+        routerLink="/connexion/login"
+        class="color-primary text-decoration-underline"
         >To log in</a
       >
     </div>

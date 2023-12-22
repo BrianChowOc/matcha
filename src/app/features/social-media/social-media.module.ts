@@ -5,21 +5,11 @@ import { SocialMediaRoutingModule } from './social-media-routing.module';
 import { UserListItemComponent } from './components/user-list-item/user-list-item.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { SharedModule } from '../../shared/shared.module';
-import { UserService } from './services/user.service';
-
+import { UserService } from '../../shared/services/user.service';
 
 @NgModule({
-  declarations: [
-    UserListItemComponent,
-    UserListComponent
-  ],
-  imports: [
-    CommonModule,
-    SocialMediaRoutingModule,
-    SharedModule
-  ],
-  providers: [
-    UserService
-  ]
+  declarations: [UserListItemComponent, UserListComponent],
+  imports: [CommonModule, SocialMediaRoutingModule, SharedModule],
+  providers: [UserService],
 })
-export class SocialMediaModule { }
+export class SocialMediaModule {}

@@ -1,10 +1,14 @@
 <mat-card class="width-full">
   <mat-card-content>
     <div class="display-flex align-items-center">
-      <img class="border-radius-50" [src]="user.imageUrl" width="115px" />
+      <div
+        class="background-color-blue img-size overflow-hidden border-radius-50"
+      >
+        <img class="display-block height-100 width-100" [src]="user.imageUrl" />
+      </div>
       <div class="margin-left-5">
         <div class="font-weight-bold">
-         {{ user.firstname | titlecase }} {{ user.lastname | titlecase }}
+          {{ user.username | titlecase }}
         </div>
         <div class="color-primary">{{ user.sex | titlecase }}</div>
         <div>{{ user.birth }}</div>
