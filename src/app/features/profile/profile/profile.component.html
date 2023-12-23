@@ -1,1 +1,199 @@
-<p>profile works!</p>
+<div class="display-flex flex-direction-column" *ngIf="user$ | async as user">
+  <div
+    [ngStyle]="{
+      'background-image': 'url(' + user.backgroundImage + ')',
+      'background-size': 'cover',
+      'background-position': 'center'
+    }"
+    class="display-flex justify-content-center align-items-end height-325px width-100"
+  >
+    <div
+      class="img-size overflow-hidden border-radius-50 img-border margin-bottom-negative-80px"
+    >
+      <img class="display-block height-100 width-100" [src]="user.imageUrl" />
+    </div>
+  </div>
+  <div
+    class="margin-top-100px display-flex justify-content-center font-weight-55px font-weight-bold margin-bottom-100"
+  >
+    {{ user.username | titlecase }}
+  </div>
+
+  <div class="display-flex margin-50 gap-30">
+    <div
+      class="display-flex flex-direction-column width-100 padding-10 border-container"
+    >
+      <div class="color-primary font-weight-bold margin-bottom-25">
+        Pictures
+      </div>
+      <div class="display-flex margin-10 space-between">
+        <div *ngFor="let image of user.imageList; let i = index">
+          <div class="image-list-container">
+            <div
+              class="picture-container display-flex justify-content-center align-items-center"
+            >
+              <div
+                class="display-flex flex-direction-column justify-content-center align-items-center height-100 width-100"
+              >
+                <div
+                  class="font-weight-bold text-decoration-underline font font-size-20"
+                >
+                  Upload a profil picture
+                </div>
+                <div class="color-secondary font-size-12">
+                  .png or .jpg 1 Mo Maximum
+                </div>
+              </div>
+              <input
+                type="file"
+                placeholder="Choisir un fichier"
+                name="fileInput"
+                class="input-picture"
+                [formControl]="pictureControls[i]"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="display-flex margin-50 gap-30">
+    <div
+      class="display-flex flex-direction-column width-100 padding-10 border-container"
+    >
+      <div class="color-primary font-weight-bold margin-bottom-25">
+        My informations
+      </div>
+      <form
+        [formGroup]="informationsForm"
+        class="display-flex margin-10 space-around"
+      >
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input matInput placeholder="Username" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="Email" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput placeholder="Password" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Confirm password</mat-label>
+          <input matInput placeholder="Confirm password" />
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+  <div class="display-flex margin-50 gap-30">
+    <div
+      class="display-flex flex-direction-column width-100 padding-10 border-container"
+    >
+      <div class="color-primary font-weight-bold margin-bottom-25">
+        My interests
+      </div>
+      <form
+        [formGroup]="interestsForm"
+        class="display-flex margin-10 space-around"
+      >
+        <div
+          class="display-flex flex-direction-column height-100 align-items-center margin-top-20"
+        >
+          <div class="display-flex flex-direction-column height-100 gap-30">
+            <div fxLayout="row" fxLayoutAlign="start start">
+              <div
+                *ngFor="let checkboxRow of checkboxRows"
+                fxLayout="column"
+                fxLayoutGap="0px"
+              >
+                <mat-checkbox
+                  *ngFor="let checkbox of checkboxRow"
+                  [formControlName]="checkbox.label.toLowerCase()"
+                  >{{ checkbox.label }}</mat-checkbox
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div
+      class="display-flex flex-direction-column width-100 padding-10 border-container"
+    >
+      <div class="color-primary font-weight-bold margin-bottom-25">
+        My profil
+      </div>
+      <form
+        [formGroup]="profilForm"
+        class="display-flex margin-10 space-around"
+      >
+        <div class="display-flex flex-direction-column height-100">
+          <div class="grid-container height-100 gap-30">
+            <div class="display-flex flex-direction-column">
+              <mat-label class="font-weight-bold">Genre</mat-label>
+              <mat-radio-group formControlName="genre">
+                <mat-radio-button value="man">Man</mat-radio-button>
+                <mat-radio-button value="woman">Woman</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <div class="display-flex flex-direction-column">
+              <mat-label class="font-weight-bold">Sexual orientation</mat-label>
+              <mat-radio-group formControlName="sexualOrientation">
+                <mat-radio-button value="heterosexual"
+                  >Heterosexual</mat-radio-button
+                >
+                <mat-radio-button value="homosexual"
+                  >Homosexual</mat-radio-button
+                >
+                <mat-radio-button value="bisexual">Bisexual</mat-radio-button>
+              </mat-radio-group>
+            </div>
+            <mat-form-field>
+              <mat-label>Date of birth</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                formControlName="birth"
+              />
+              <mat-hint>DD/MM/YYYY</mat-hint>
+              <mat-datepicker-toggle
+                matIconSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>City</mat-label>
+              <input type="text" matInput formControlName="city" />
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="display-flex margin-50 gap-30">
+    <div
+      class="display-flex flex-direction-column width-100 padding-10 border-container"
+    >
+      <div class="color-primary font-weight-bold margin-bottom-25">
+        My biographie
+      </div>
+      <div class="display-flex margin-10 space-around">
+        <div class="display-flex flex-direction-column height-100">
+          <div class="display-flex flex-direction-column height-100 gap-30">
+            <mat-form-field appearance="fill">
+              <textarea
+                class="text-area-height"
+                matInput
+                placeholder="Description"
+                [formControl]="biographieCtrl"
+              ></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
