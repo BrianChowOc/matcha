@@ -58,14 +58,43 @@
 .input-picture {
     height: 100%;
     width: 100%;
+    top: 0;
+    left: 0;
     opacity: 0;
     position: absolute;
     cursor: pointer;
+    z-index: 50;
   }
 
   .picture-container {
     width: 350px;
     height: 200px;
+    overflow: hidden;
     border: 1px dotted #8A98BA;
     position: relative;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.text-area-height {
+    height: 200px !important;
+    width: 100%;
+}
+
+.button-image-profil {
+    z-index: 0;
+    margin-bottom: -30px;
+    margin-left: -40px;
+}
+
+.button-cover {
+    right: 20px;
+    bottom: 10px;
+}
+
+.button-cover span {
+    font-weight: lighter;
 }

@@ -9,6 +9,7 @@ import { Observable, tap } from 'rxjs';
 import { User } from 'src/app/shared/models/user.model';
 import { UserService } from 'src/app/shared/services/user.service';
 import { CheckboxService } from '../../connexion/services/checkbox.service';
+import { ImagePreviewService } from 'src/app/shared/services/image-preview.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,9 +17,21 @@ import { CheckboxService } from '../../connexion/services/checkbox.service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  userImageList!: string[];
+  userImage!: string | ArrayBuffer | null;
+  coverImage!: string | ArrayBuffer | null | undefined;
+  userImageList: { [key: string]: string | ArrayBuffer | null } = {
+    '0': null,
+    '1': null,
+    '2': null,
+    '3': null,
+  };
+
   checkboxRows!: { label: string }[][];
   user$!: Observable<User>;
+
+  mainPictureCtrl!: FormControl;
+
+  coverPictureCtrl!: FormControl;
 
   picture1Ctrl!: FormControl;
   picture2Ctrl!: FormControl;
@@ -36,19 +49,30 @@ export class ProfileComponent implements OnInit {
 
   biographieCtrl!: FormControl;
 
+  mainForm!: FormGroup;
+
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private checkboxService: CheckboxService
+    private checkboxService: CheckboxService,
+    private imagePreviewService: ImagePreviewService
   ) {}
+
+  getObjectKeys(obj: any): string[] {
+    return Object.keys(obj);
+  }
 
   ngOnInit(): void {
     this.user$ = this.userService.getUser();
+    this.coverPictureCtrl = this.formBuilder.control('');
+    this.mainPictureCtrl = this.formBuilder.control('');
+    this.initImages();
     this.initPictureForm();
     this.initInterestsForm();
     this.initBiographieCtrl();
     this.initInformationsForm();
     this.initProfilForm();
+    this.initMainForm();
     this.checkboxRows = this.checkboxService.checkboxRows;
   }
 
@@ -115,5 +139,59 @@ export class ProfileComponent implements OnInit {
 
   private initBiographieCtrl(): void {
     this.biographieCtrl = this.formBuilder.control('');
+  }
+
+  private initMainForm(): void {
+    this.mainForm = this.formBuilder.group({
+      coverPicture: this.coverPictureCtrl,
+      mainPicture: this.mainPictureCtrl,
+      pictureLst: this.pictureForm,
+      information: this.informationsForm,
+      interest: this.interestsForm,
+      profil: this.profilForm,
+      biographie: this.biographieCtrl,
+    });
+  }
+
+  private initImages(): void {
+    this.user$.subscribe((user) => {
+      for (let i = 0; i < user.imageList.length; i++) {
+        this.userImageList[i] = user.imageList[i];
+      }
+      this.userImage = user.imageUrl;
+      this.coverImage = user.backgroundImage;
+    });
+  }
+
+  onFileSelected(event: any, imageType: number | 'main' | 'cover'): void {
+    const input = event.target;
+
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+
+      this.imagePreviewService
+        .setPreviewImageFromFile(file)
+        .then(() => {
+          if (typeof imageType === 'number') {
+            this.userImageList[imageType] =
+              this.imagePreviewService.getPreviewImage();
+          } else if (imageType === 'main') {
+            this.userImage = this.imagePreviewService.getPreviewImage();
+          } else if (imageType === 'cover') {
+            this.coverImage = this.imagePreviewService.getPreviewImage();
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }
+
+  getPreviewImage(): string | ArrayBuffer | null {
+    return this.imagePreviewService.getPreviewImage();
+  }
+
+  onSubmit(): void {
+    console.log('mainForm --> ', this.mainForm.value);
   }
 }

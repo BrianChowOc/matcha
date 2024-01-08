@@ -95,9 +95,9 @@ export class UserService {
       imageUrl: '../assets/images/random-user-image.jpg',
       imageList: [
         '../assets/images/random-user-image.jpg',
+        '',
         '../assets/images/random-user-image.jpg',
-        '../assets/images/random-user-image.jpg',
-        '../assets/images/random-user-image.jpg',
+        '',
       ],
       backgroundImage: '../assets/images/background-user-image.jpg',
     });

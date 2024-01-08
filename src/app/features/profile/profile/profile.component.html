@@ -1,16 +1,47 @@
 <div class="display-flex flex-direction-column" *ngIf="user$ | async as user">
   <div
     [ngStyle]="{
-      'background-image': 'url(' + user.backgroundImage + ')',
+      'background-image': 'url(' + coverImage + ')',
       'background-size': 'cover',
       'background-position': 'center'
     }"
-    class="display-flex justify-content-center align-items-end height-325px width-100"
+    class="display-flex justify-content-center align-items-end height-325px width-100 position-relative"
   >
+    <button
+      class="button-cover position-absolute position-relative"
+      mat-raised-button
+    >
+      <input
+        type="file"
+        placeholder="Choisir un fichier"
+        name="fileInput"
+        class="input-picture"
+        [formControl]="coverPictureCtrl"
+        (change)="onFileSelected($event, 'cover')"
+      />
+      <mat-icon>camera_alt</mat-icon><span>Change the cover photo</span>
+    </button>
     <div
       class="img-size overflow-hidden border-radius-50 img-border margin-bottom-negative-80px"
     >
-      <img class="display-block height-100 width-100" [src]="user.imageUrl" />
+      <img class="display-block height-100 width-100" [src]="userImage" />
+    </div>
+    <div class="display-flex position-relative">
+      <button
+        class="button-image-profil position-relative"
+        mat-fab
+        color="primary"
+      >
+        <input
+          type="file"
+          placeholder="Choisir un fichier"
+          name="fileInput"
+          class="input-picture"
+          [formControl]="mainPictureCtrl"
+          (change)="onFileSelected($event, 'main')"
+        />
+        <mat-icon class="z-index-0">camera_alt</mat-icon>
+      </button>
     </div>
   </div>
   <div
@@ -27,12 +58,13 @@
         Pictures
       </div>
       <div class="display-flex margin-10 space-between">
-        <div *ngFor="let image of user.imageList; let i = index">
+        <div *ngFor="let key of getObjectKeys(userImageList); let i = index">
           <div class="image-list-container">
             <div
               class="picture-container display-flex justify-content-center align-items-center"
             >
               <div
+                *ngIf="!userImageList[key]"
                 class="display-flex flex-direction-column justify-content-center align-items-center height-100 width-100"
               >
                 <div
@@ -44,12 +76,18 @@
                   .png or .jpg 1 Mo Maximum
                 </div>
               </div>
+              <img
+                *ngIf="userImageList[key]"
+                [src]="userImageList[key]"
+                alt="image"
+              />
               <input
                 type="file"
                 placeholder="Choisir un fichier"
                 name="fileInput"
                 class="input-picture"
                 [formControl]="pictureControls[i]"
+                (change)="onFileSelected($event, i)"
               />
             </div>
           </div>
@@ -70,19 +108,29 @@
       >
         <mat-form-field>
           <mat-label>Username</mat-label>
-          <input matInput placeholder="Username" />
+          <input matInput placeholder="Username" formControlName="username" />
         </mat-form-field>
         <mat-form-field>
           <mat-label>Email</mat-label>
-          <input matInput placeholder="Email" />
+          <input matInput placeholder="Email" formControlName="email" />
         </mat-form-field>
         <mat-form-field>
           <mat-label>Password</mat-label>
-          <input matInput placeholder="Password" />
+          <input
+            matInput
+            placeholder="Password"
+            formControlName="password"
+            type="password"
+          />
         </mat-form-field>
         <mat-form-field>
           <mat-label>Confirm password</mat-label>
-          <input matInput placeholder="Confirm password" />
+          <input
+            matInput
+            placeholder="Confirm password"
+            formControlName="confirmPassword"
+            type="password"
+          />
         </mat-form-field>
       </form>
     </div>
@@ -181,8 +229,10 @@
         My biographie
       </div>
       <div class="display-flex margin-10 space-around">
-        <div class="display-flex flex-direction-column height-100">
-          <div class="display-flex flex-direction-column height-100 gap-30">
+        <div class="display-flex flex-direction-column height-100 width-100">
+          <div
+            class="display-flex flex-direction-column height-100 gap-30 width-100"
+          >
             <mat-form-field appearance="fill">
               <textarea
                 class="text-area-height"
@@ -195,5 +245,15 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="display-flex margin-bottom-25 justify-content-center">
+    <button
+      (click)="onSubmit()"
+      class="color-white"
+      mat-raised-button
+      color="primary"
+    >
+      Save
+    </button>
   </div>
 </div>
