@@ -16,21 +16,27 @@
     height: 200px !important;
 }
 
-.picture-container {
+.input-picture {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .picture-container {
     width: 350px;
     height: 200px;
+    overflow: hidden;
     border: 1px dotted #8A98BA;
     position: relative;
-}
-
-.input-picture {
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  position: absolute;
-  cursor: pointer;
 }
 
 ::ng-deep .mat-horizontal-stepper-header-container {
     display: none !important;
   }
+
+img {
+    max-width: 100%;
+    height: auto;
+}

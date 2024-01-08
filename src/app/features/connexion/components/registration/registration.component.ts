@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CheckboxService } from '../../services/checkbox.service';
+import { ImagePreviewService } from 'src/app/shared/services/image-preview.service';
 
 @Component({
   selector: 'app-registration',
@@ -15,6 +16,8 @@ import { CheckboxService } from '../../services/checkbox.service';
 export class RegistrationComponent implements OnInit {
   isLinear = false;
   checkboxRows!: { label: string }[][];
+
+  userImage!: File;
 
   passwordCtrl!: FormControl;
   confirmPasswordCtrl!: FormControl;
@@ -33,7 +36,8 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private checkboxService: CheckboxService
+    private checkboxService: CheckboxService,
+    private imagePreviewService: ImagePreviewService
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +45,7 @@ export class RegistrationComponent implements OnInit {
     this.initStep2Form();
     this.initStep3Form();
     this.initStep4Form();
-    this.initStep5Form();
+    this.initStep5Ctrl();
     this.initMainForm();
     this.checkboxRows = this.checkboxService.checkboxRows;
   }
@@ -90,7 +94,7 @@ export class RegistrationComponent implements OnInit {
     this.step4Ctrl = this.formBuilder.control('');
   }
 
-  private initStep5Form(): void {
+  private initStep5Ctrl(): void {
     this.step5Ctrl = this.formBuilder.control('');
   }
 
@@ -104,7 +108,28 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
-  onTest() {
-    console.log('mainForm --> ', this.mainForm.value);
+  onFileSelected(event: any): void {
+    const input = event.target;
+
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      this.imagePreviewService
+        .setPreviewImageFromFile(file)
+        .then(() => {
+          this.userImage = file;
+          this.step5Ctrl.setValue(file);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }
+
+  getPreviewImage(): string | ArrayBuffer | null {
+    return this.imagePreviewService.getPreviewImage();
+  }
+
+  onSubmit() {
+    console.log('FORM -> ', this.mainForm.value);
   }
 }

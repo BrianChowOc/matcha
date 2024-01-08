@@ -1,7 +1,15 @@
+.link-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 64px;
+  width: 400px;
+}
+
+
 .example-spacer {
   flex: 1 1 auto;
 }
-
 
 .header-menu {
   background-color: #F7F7FA;

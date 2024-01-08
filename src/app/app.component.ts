@@ -5,20 +5,20 @@ import { filter } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'matcha';
   showHeader!: boolean;
 
-  constructor(
-    private router: Router,
-  ) {
-    this.router.events.pipe(
-      filter(event=> event instanceof NavigationEnd)
-    ).subscribe((event) => {
-      if (event instanceof NavigationEnd)
-        this.showHeader = !event.url.includes("/connexion");
-    });
+  constructor(private router: Router) {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        if (event instanceof NavigationEnd)
+          this.showHeader =
+            !event.url.includes('/connexion') &&
+            !event.url.includes('/auth/login');
+      });
   }
 }

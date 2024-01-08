@@ -80,7 +80,11 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: #2A2E43;
+}
 
+a {
+  color: #2A2E43;
+  text-decoration: none;
 }
 
 button {
@@ -352,4 +356,16 @@ button {
 
 .border-color-secondary {
   border-color: #ffa384 !important;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.z-index-0 {
+  z-index: 0;
 }

@@ -1,33 +1,19 @@
 <mat-toolbar>
   <span class="example-spacer color-secondary">MATCHA</span>
-  <button
-    mat-icon-button
-    class="example-icon home-icon"
-    aria-label="Icon-button with home icon"
-  >
-    <mat-icon>home</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    class="example-icon chat-bubble-icon"
-    aria-label="Icon-button with chat bubble icon"
-  >
-    <mat-icon>chat_bubble</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    class="example-icon favorite-icon"
-    aria-label="Icon-button with heart icon"
-  >
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    class="example-icon circle_notifications-icon"
-    aria-label="Icon-button with circle_notifications icon"
-  >
-    <mat-icon>circle_notifications</mat-icon>
-  </button>
+  <div class="link-header">
+    <a routerLink="/">
+      <mat-icon>home</mat-icon>
+    </a>
+    <a routerLink="/">
+      <mat-icon>chat_bubble</mat-icon>
+    </a>
+    <a routerLink="/">
+      <mat-icon>favorite</mat-icon>
+    </a>
+    <a routerLink="/">
+      <mat-icon>circle_notifications</mat-icon>
+    </a>
+  </div>
   <button mat-button [matMenuTriggerFor]="menu">
     <mat-icon>keyboard_arrow_down</mat-icon>
   </button>
@@ -51,7 +37,7 @@
     <button mat-menu-item class="display-flex space-between">
       <div class="order-0 display-flex">
         <mat-icon [ngStyle]="{ color: '#C4CBDC' }">account_circle</mat-icon>
-        <span>My profil</span>
+        <a routerLink="/profile">My profil</a>
       </div>
       <mat-icon class="order-1 justify-self-end">keyboard_arrow_right</mat-icon>
     </button>

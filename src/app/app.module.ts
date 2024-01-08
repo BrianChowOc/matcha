@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
     BrowserAnimationsModule,
     CoreModule,
     SharedModule,
+    AuthModule,
   ],
   providers: [
     {
