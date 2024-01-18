@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { User } from 'src/app/shared/models/user.model';
 import { UserService } from '../../../../shared/services/user.service';
 
@@ -9,11 +9,11 @@ import { UserService } from '../../../../shared/services/user.service';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent implements OnInit {
-  user$!: Observable<User[]>;
+  users!: User[];
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.user$ = this.userService.getUsers();
+    this.userService.getUsers().subscribe((users) => (this.users = users));
   }
 }

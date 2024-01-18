@@ -1,4 +1,4 @@
-<div class="display-flex flex-direction-column" *ngIf="user$ | async as user">
+<div class="display-flex flex-direction-column" *ngIf="user">
   <div
     [ngStyle]="{
       'background-image': 'url(' + user.backgroundImage + ')',
@@ -10,20 +10,25 @@
     <div
       class="img-size overflow-hidden border-radius-50 img-border margin-bottom-negative-80px"
     >
-      <img class="display-block height-100 width-100" [src]="user.imageUrl" />
+      <img class="display-block height-100 width-100" [src]="user.profilImg" />
     </div>
   </div>
   <div
     class="margin-top-100px display-flex justify-content-center font-weight-55px font-weight-bold margin-bottom-100"
   >
-    {{ user.username | titlecase }}
+    {{ user.information.username | titlecase }}
   </div>
   <div class="display-flex justify-content-right margin-rigth-50 gap-30">
-    <button mat-stroked-button color="accent">
-      <mat-icon>favorite_border</mat-icon> Like</button
-    ><button mat-stroked-button color="primary">
-      <mat-icon> message</mat-icon> Message
+    <button mat-stroked-button color="accent" (click)="deleteUser()">
+      <mat-icon>delete</mat-icon> Delete
     </button>
+    <div>
+      <button mat-stroked-button color="accent">
+        <mat-icon>favorite_border</mat-icon> Like</button
+      ><button mat-stroked-button color="primary">
+        <mat-icon> message</mat-icon> Message
+      </button>
+    </div>
   </div>
   <div class="display-flex margin-50 gap-30">
     <div class="padding-10 border-container flex-1">
@@ -46,7 +51,7 @@
       class="display-flex flex-direction-column border-container padding-30 flex-2"
     >
       <div class="margin-bottom-50">
-        {{ user.description }}
+        {{ user.biographie }}
       </div>
       <div class="display-flex flex-direction-column align-items-center">
         <div class="display-flex gap-10 margin-bottom-50">
@@ -61,10 +66,10 @@
           <div
             class="display-flex flex-direction-column align-items-center gap-30"
           >
-            <div>{{ user.sex }}</div>
-            <div>{{ user.orientation }}</div>
-            <div>{{ user.birth }}</div>
-            <div>{{ user.location }}</div>
+            <div>{{ user.profil.genre }}</div>
+            <div>{{ user.profil.sexualOrientation }}</div>
+            <div>{{ user.profil.birth }}</div>
+            <div>{{ user.profil.city }}</div>
           </div>
         </div>
         <div class="display-flex justify-content-center gap-10">

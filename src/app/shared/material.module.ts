@@ -30,7 +30,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSelectModule,
     MatMenuModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
 })
 export class MaterialModule {}

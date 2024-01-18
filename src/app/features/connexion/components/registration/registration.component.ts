@@ -7,6 +7,11 @@ import {
 } from '@angular/forms';
 import { CheckboxService } from '../../services/checkbox.service';
 import { ImagePreviewService } from 'src/app/shared/services/image-preview.service';
+import { User } from 'src/app/shared/models/user.model';
+import { UserService } from 'src/app/shared/services/user.service';
+import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-registration',
@@ -19,13 +24,14 @@ export class RegistrationComponent implements OnInit {
 
   userImage!: File;
 
+  interests: string[] = [];
+
   passwordCtrl!: FormControl;
   confirmPasswordCtrl!: FormControl;
   step1Form!: FormGroup;
 
   step2Form!: FormGroup;
 
-  interestsCtrl!: FormControl;
   step3Form!: FormGroup;
 
   step4Ctrl!: FormControl;
@@ -37,7 +43,10 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private checkboxService: CheckboxService,
-    private imagePreviewService: ImagePreviewService
+    private imagePreviewService: ImagePreviewService,
+    private userService: UserService,
+    private router: Router,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -60,7 +69,6 @@ export class RegistrationComponent implements OnInit {
       username: ['', Validators.required],
       email: ['', Validators.required],
       password: this.passwordCtrl,
-      confirmPassword: this.confirmPasswordCtrl,
     });
   }
 
@@ -102,7 +110,6 @@ export class RegistrationComponent implements OnInit {
     this.mainForm = this.formBuilder.group({
       information: this.step1Form,
       profil: this.step2Form,
-      interests: this.step3Form,
       biographie: this.step4Ctrl,
       profilImg: this.step5Ctrl,
     });
@@ -129,7 +136,49 @@ export class RegistrationComponent implements OnInit {
     return this.imagePreviewService.getPreviewImage();
   }
 
+  formatedDate() {
+    this.mainForm.value.profil.birth = this.datePipe.transform(
+      this.mainForm.value.profil.birth,
+      'dd-MM-yyyy'
+    );
+  }
+
+  setInterestsTab() {
+    let interestTab: string[] = [];
+    for (let key in this.step3Form.value) {
+      if (this.step3Form.value[key]) {
+        interestTab.push(key);
+      }
+    }
+    return interestTab;
+  }
+
   onSubmit() {
-    console.log('FORM -> ', this.mainForm.value);
+    if (this.mainForm.valid) {
+      this.formatedDate();
+      const newUser: User = {
+        ...this.mainForm.value,
+        interests: this.setInterestsTab(),
+      };
+
+      this.userService
+        .addUser(newUser)
+        .pipe(
+          tap(
+            (addedUser) => {
+              console.log('User created', addedUser);
+              this.mainForm.reset();
+            },
+            (error) => {
+              console.error(
+                "Erreur lors de l'ajout de l'utilisateur : ",
+                error
+              );
+            }
+          )
+        )
+        .subscribe();
+      this.router.navigateByUrl('/');
+    }
   }
 }

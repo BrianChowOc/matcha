@@ -10,6 +10,9 @@ import { User } from 'src/app/shared/models/user.model';
 import { UserService } from 'src/app/shared/services/user.service';
 import { CheckboxService } from '../../connexion/services/checkbox.service';
 import { ImagePreviewService } from 'src/app/shared/services/image-preview.service';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -27,18 +30,18 @@ export class ProfileComponent implements OnInit {
   };
 
   checkboxRows!: { label: string }[][];
-  user$!: Observable<User>;
+  user!: User;
 
-  mainPictureCtrl!: FormControl;
+  profilImgCtrl!: FormControl;
 
-  coverPictureCtrl!: FormControl;
+  backgroundImageCtrl!: FormControl;
 
   picture1Ctrl!: FormControl;
   picture2Ctrl!: FormControl;
   picture3Ctrl!: FormControl;
   picture4Ctrl!: FormControl;
   pictureControls: FormControl[] = [];
-  pictureForm!: FormGroup;
+  imageListForm!: FormGroup;
 
   passwordCtrl!: FormControl;
   confirmPasswordCtrl!: FormControl;
@@ -55,7 +58,10 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private checkboxService: CheckboxService,
-    private imagePreviewService: ImagePreviewService
+    private imagePreviewService: ImagePreviewService,
+    private authService: AuthService,
+    private datePipe: DatePipe,
+    private router: Router
   ) {}
 
   getObjectKeys(obj: any): string[] {
@@ -63,15 +69,18 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user$ = this.userService.getUser();
-    this.coverPictureCtrl = this.formBuilder.control('');
-    this.mainPictureCtrl = this.formBuilder.control('');
+    this.userService
+      .getUserById(this.authService.getUserId())
+      .subscribe((user) => (this.user = user));
+
     this.initImages();
     this.initPictureForm();
     this.initInterestsForm();
     this.initBiographieCtrl();
     this.initInformationsForm();
     this.initProfilForm();
+    this.profilImgCtrl = this.formBuilder.control('');
+    this.backgroundImageCtrl = this.formBuilder.control('');
     this.initMainForm();
     this.checkboxRows = this.checkboxService.checkboxRows;
   }
@@ -82,7 +91,7 @@ export class ProfileComponent implements OnInit {
     this.picture3Ctrl = this.formBuilder.control('');
     this.picture4Ctrl = this.formBuilder.control('');
 
-    this.pictureForm = this.formBuilder.group({
+    this.imageListForm = this.formBuilder.group({
       picture1: this.picture1Ctrl,
       picture2: this.picture2Ctrl,
       picture3: this.picture3Ctrl,
@@ -107,7 +116,6 @@ export class ProfileComponent implements OnInit {
       username: ['', Validators.required],
       email: ['', Validators.required],
       password: this.passwordCtrl,
-      confirmPassword: this.confirmPasswordCtrl,
     });
   }
 
@@ -143,24 +151,23 @@ export class ProfileComponent implements OnInit {
 
   private initMainForm(): void {
     this.mainForm = this.formBuilder.group({
-      coverPicture: this.coverPictureCtrl,
-      mainPicture: this.mainPictureCtrl,
-      pictureLst: this.pictureForm,
+      backgroundImage: this.backgroundImageCtrl,
+      profilImg: this.profilImgCtrl,
+      imageList: this.imageListForm,
       information: this.informationsForm,
-      interest: this.interestsForm,
       profil: this.profilForm,
       biographie: this.biographieCtrl,
     });
   }
 
   private initImages(): void {
-    this.user$.subscribe((user) => {
-      for (let i = 0; i < user.imageList.length; i++) {
-        this.userImageList[i] = user.imageList[i];
+    if (this.user.imageList) {
+      for (let i = 0; i < this.user.imageList.length; i++) {
+        this.userImageList[i] = this.user.imageList[i];
       }
-      this.userImage = user.imageUrl;
-      this.coverImage = user.backgroundImage;
-    });
+    }
+    this.userImage = this.user.profilImg;
+    this.coverImage = this.user.backgroundImage;
   }
 
   onFileSelected(event: any, imageType: number | 'main' | 'cover'): void {
@@ -191,7 +198,44 @@ export class ProfileComponent implements OnInit {
     return this.imagePreviewService.getPreviewImage();
   }
 
+  initImageTab() {
+    let tabImage = [];
+    for (const key in this.imageListForm.value) {
+      if (Object.prototype.hasOwnProperty.call(this.imageListForm.value, key)) {
+        const value = this.imageListForm.value[key];
+        tabImage.push(value);
+      }
+    }
+    return tabImage;
+  }
+
+  setInterestsTab() {
+    let interestTab: string[] = [];
+    for (let key in this.interestsForm.value) {
+      if (this.interestsForm.value[key]) {
+        interestTab.push(key);
+      }
+    }
+    return interestTab;
+  }
+
   onSubmit(): void {
-    console.log('mainForm --> ', this.mainForm.value);
+    this.mainForm.value.profil.birth = this.datePipe.transform(
+      this.mainForm.value.profil.birth,
+      'dd-MM-yyyy'
+    );
+
+    const updatedUser: User = {
+      ...this.mainForm.value,
+      imageList: this.initImageTab(),
+      interests: this.setInterestsTab(),
+    };
+
+    this.userService
+      .updateUser(this.authService.getUserId(), updatedUser)
+      .pipe(tap((res) => console.log(res)))
+      .subscribe();
+
+    this.router.navigateByUrl('/');
   }
 }

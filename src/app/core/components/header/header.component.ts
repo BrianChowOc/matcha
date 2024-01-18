@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/shared/models/user.model';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,18 +11,37 @@ import { User } from 'src/app/shared/models/user.model';
 export class HeaderComponent implements OnInit {
   user!: User;
 
+  constructor(private authService: AuthService, private router: Router) {}
+
   ngOnInit(): void {
     this.user = {
-      id: 1,
-      username: 'lejohn',
-      sex: 'homme',
-      orientation: 'gay',
-      birth: '26/02/1988',
-      location: 'paris',
+      _id: 1,
+      information: {
+        username: 'lejohn',
+        email: 'fakeEmail',
+        password: 'fakePassword',
+      },
+      profil: {
+        genre: 'homme',
+        sexualOrientation: 'gay',
+        birth: '26/02/1988',
+        city: 'Paris',
+      },
       interests: ['sport', 'cooking', 'music'],
-      description: "j'aime manger des pommes",
-      imageUrl: '../assets/images/random-user-image.jpg',
-      imageList: ['../assets/images/random-user-image.jpg'],
+      biographie: "j'aime manger des pommes",
+      profilImg: '../assets/images/random-user-image.jpg',
+      imageList: [
+        '../assets/images/random-user-image.jpg',
+        '../assets/images/random-user-image.jpg',
+        '../assets/images/random-user-image.jpg',
+        '../assets/images/random-user-image.jpg',
+      ],
+      backgroundImage: '../assets/images/background-user-image.jpg',
     };
+  }
+
+  onLogout() {
+    this.authService.logout();
+    this.router.navigateByUrl('/connexion');
   }
 }

@@ -1,4 +1,4 @@
-<div class="display-flex flex-direction-column" *ngIf="user$ | async as user">
+<div class="display-flex flex-direction-column" *ngIf="user">
   <div
     [ngStyle]="{
       'background-image': 'url(' + coverImage + ')',
@@ -16,7 +16,7 @@
         placeholder="Choisir un fichier"
         name="fileInput"
         class="input-picture"
-        [formControl]="coverPictureCtrl"
+        [formControl]="backgroundImageCtrl"
         (change)="onFileSelected($event, 'cover')"
       />
       <mat-icon>camera_alt</mat-icon><span>Change the cover photo</span>
@@ -37,7 +37,7 @@
           placeholder="Choisir un fichier"
           name="fileInput"
           class="input-picture"
-          [formControl]="mainPictureCtrl"
+          [formControl]="profilImgCtrl"
           (change)="onFileSelected($event, 'main')"
         />
         <mat-icon class="z-index-0">camera_alt</mat-icon>
@@ -47,7 +47,7 @@
   <div
     class="margin-top-100px display-flex justify-content-center font-weight-55px font-weight-bold margin-bottom-100"
   >
-    {{ user.username | titlecase }}
+    {{ user.information.username | titlecase }}
   </div>
 
   <div class="display-flex margin-50 gap-30">
@@ -128,7 +128,7 @@
           <input
             matInput
             placeholder="Confirm password"
-            formControlName="confirmPassword"
+            [formControl]="confirmPasswordCtrl"
             type="password"
           />
         </mat-form-field>

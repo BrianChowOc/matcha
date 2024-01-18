@@ -15,6 +15,6 @@ export class UserListItemComponent implements OnInit {
   ngOnInit(): void {}
 
   onProfile() {
-    this.router.navigateByUrl(`profile/${this.user.id}`);
+    this.router.navigateByUrl(`profile/${this.user._id}`);
   }
 }

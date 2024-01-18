@@ -1,13 +1,19 @@
 export class User {
-  id!: number;
-  username!: string;
-  sex!: string;
-  orientation!: string;
-  birth!: string;
-  location!: string;
+  _id?: number;
+  information!: {
+    username: string;
+    email: string;
+    password: string;
+  };
+  profil!: {
+    genre: string;
+    sexualOrientation: string;
+    birth: string;
+    city: string;
+  };
   interests!: Array<string>;
-  description!: string;
-  imageUrl!: string;
-  imageList!: Array<string>;
+  biographie!: string;
+  profilImg!: string;
+  imageList?: Array<string>;
   backgroundImage?: string;
 }

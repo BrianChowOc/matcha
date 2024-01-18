@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { ConnexionRoutingModule } from './connexion-routing.module';
 import { BoardingComponent } from './components/boarding/boarding.component';
-import { LoginComponent } from '../../auth/components/login/login.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CheckboxService } from './services/checkbox.service';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -23,6 +22,6 @@ import { ConnexionLayoutComponent } from './components/connexion-layout/connexio
     MatStepperModule,
   ],
   exports: [ConnexionLayoutComponent],
-  providers: [CheckboxService],
+  providers: [CheckboxService, DatePipe],
 })
 export class ConnexionModule {}

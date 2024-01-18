@@ -7,7 +7,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../services/auth.services';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +20,11 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     const token = this.auth.getToken();
-    if (token) return true;
-    this.router.navigateByUrl('/auth/login');
-    return false;
+    if (token) {
+      return true;
+    } else {
+      this.router.navigateByUrl('/connexion');
+      return false;
+    }
   }
 }
