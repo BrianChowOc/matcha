@@ -13,7 +13,7 @@ export class User {
   };
   interests!: Array<string>;
   biographie!: string;
-  profilImg!: string;
+  profilImg?: File;
   imageList?: Array<string>;
   backgroundImage?: string;
 }

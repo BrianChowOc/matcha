@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 
@@ -9,7 +10,7 @@ import { environment } from 'src/app/environments/environment';
 export class AuthService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(
     email: string,
@@ -30,6 +31,10 @@ export class AuthService {
 
   logout(): void {
     this.removeToken();
+  }
+
+  redirectToLogin() {
+    this.router.navigateByUrl('/connexion');
   }
 
   isAuthenticated(): boolean {

@@ -203,7 +203,7 @@
         </ng-template>
       </form>
     </mat-step>
-    <mat-step [stepControl]="step5Ctrl">
+    <mat-step>
       <div class="margin-bottom-25">
         PROFIL PICTURE - <span class="color-secondary">Step 5/5</span>
       </div>
@@ -232,6 +232,8 @@
                     *ngIf="userImage"
                     [src]="getPreviewImage()"
                     alt="user-image"
+                    fill
+                    priority
                   />
                 </div>
                 <input
@@ -271,7 +273,7 @@
     <div>
       Already a member ?
       <a
-        routerLink="/connexion/login"
+        routerLink="/auth/login"
         class="color-primary text-decoration-underline"
         >To log in</a
       >

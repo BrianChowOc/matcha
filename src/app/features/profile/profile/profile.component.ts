@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  userImage!: string | ArrayBuffer | null;
+  userImage!: string | File | ArrayBuffer | null | undefined;
   coverImage!: string | ArrayBuffer | null | undefined;
   userImageList: { [key: string]: string | ArrayBuffer | null } = {
     '0': null,
@@ -233,7 +233,6 @@ export class ProfileComponent implements OnInit {
 
     this.userService
       .updateUser(this.authService.getUserId(), updatedUser)
-      .pipe(tap((res) => console.log(res)))
       .subscribe();
 
     this.router.navigateByUrl('/');

@@ -11,7 +11,7 @@ import { User } from 'src/app/shared/models/user.model';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { tap } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 
 @Component({
   selector: 'app-registration',
@@ -19,6 +19,7 @@ import { tap } from 'rxjs';
   styleUrls: ['./registration.component.scss'],
 })
 export class RegistrationComponent implements OnInit {
+  private userSubscription: Subscription | undefined;
   isLinear = false;
   checkboxRows!: { label: string }[][];
 
@@ -36,8 +37,6 @@ export class RegistrationComponent implements OnInit {
 
   step4Ctrl!: FormControl;
 
-  step5Ctrl!: FormControl;
-
   mainForm!: FormGroup;
 
   constructor(
@@ -54,7 +53,6 @@ export class RegistrationComponent implements OnInit {
     this.initStep2Form();
     this.initStep3Form();
     this.initStep4Form();
-    this.initStep5Ctrl();
     this.initMainForm();
     this.checkboxRows = this.checkboxService.checkboxRows;
   }
@@ -102,16 +100,11 @@ export class RegistrationComponent implements OnInit {
     this.step4Ctrl = this.formBuilder.control('');
   }
 
-  private initStep5Ctrl(): void {
-    this.step5Ctrl = this.formBuilder.control('');
-  }
-
   private initMainForm(): void {
     this.mainForm = this.formBuilder.group({
       information: this.step1Form,
       profil: this.step2Form,
       biographie: this.step4Ctrl,
-      profilImg: this.step5Ctrl,
     });
   }
 
@@ -124,7 +117,6 @@ export class RegistrationComponent implements OnInit {
         .setPreviewImageFromFile(file)
         .then(() => {
           this.userImage = file;
-          this.step5Ctrl.setValue(file);
         })
         .catch((error) => {
           console.error(error);
@@ -156,13 +148,18 @@ export class RegistrationComponent implements OnInit {
   onSubmit() {
     if (this.mainForm.valid) {
       this.formatedDate();
-      const newUser: User = {
-        ...this.mainForm.value,
-        interests: this.setInterestsTab(),
-      };
+      const formData = new FormData();
 
-      this.userService
-        .addUser(newUser)
+      if (this.userImage) {
+        formData.append('profilImg', this.userImage);
+      }
+      formData.append('information', JSON.stringify(this.step1Form.value));
+      formData.append('profil', JSON.stringify(this.step2Form.value));
+      formData.append('interests', JSON.stringify(this.setInterestsTab()));
+      formData.append('biographie', this.step4Ctrl.value);
+
+      this.userSubscription = this.userService
+        .addUser(formData)
         .pipe(
           tap(
             (addedUser) => {
@@ -170,15 +167,16 @@ export class RegistrationComponent implements OnInit {
               this.mainForm.reset();
             },
             (error) => {
-              console.error(
-                "Erreur lors de l'ajout de l'utilisateur : ",
-                error
-              );
+              console.error("Erreur lors de l'ajout de l'utilisateur: ", error);
             }
           )
         )
         .subscribe();
       this.router.navigateByUrl('/');
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.userSubscription) this.userSubscription.unsubscribe();
   }
 }

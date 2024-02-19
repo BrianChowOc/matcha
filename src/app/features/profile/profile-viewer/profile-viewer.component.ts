@@ -26,10 +26,7 @@ export class ProfileViewerComponent implements OnInit {
   }
 
   deleteUser() {
-    this.userService
-      .deleteUser(this.route.snapshot.params['id'])
-      .pipe(tap((response) => console.log(response)))
-      .subscribe();
+    this.userService.deleteUser(this.route.snapshot.params['id']).subscribe();
     this.router.navigateByUrl('/');
   }
 }

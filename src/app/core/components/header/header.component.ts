@@ -29,7 +29,6 @@ export class HeaderComponent implements OnInit {
       },
       interests: ['sport', 'cooking', 'music'],
       biographie: "j'aime manger des pommes",
-      profilImg: '../assets/images/random-user-image.jpg',
       imageList: [
         '../assets/images/random-user-image.jpg',
         '../assets/images/random-user-image.jpg',

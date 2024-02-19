@@ -8,7 +8,7 @@ import { User } from 'src/app/shared/models/user.model';
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  addUser(user: User): Observable<User> {
+  addUser(user: FormData): Observable<User> {
     return this.http.post<User>(`${environment.apiUrl}/auth/signup`, user);
   }
 
@@ -24,6 +24,13 @@ export class UserService {
     return this.http.put<User>(
       `${environment.apiUrl}/user/${id}`,
       updatedUserData
+    );
+  }
+
+  updateProfileImage(id: string | null, imageData: FormData): Observable<User> {
+    return this.http.put<User>(
+      `${environment.apiUrl}/user/${id}/profile-image`,
+      imageData
     );
   }
 

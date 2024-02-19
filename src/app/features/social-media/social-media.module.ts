@@ -10,6 +10,5 @@ import { UserService } from '../../shared/services/user.service';
 @NgModule({
   declarations: [UserListItemComponent, UserListComponent],
   imports: [CommonModule, SocialMediaRoutingModule, SharedModule],
-  providers: [UserService],
 })
 export class SocialMediaModule {}

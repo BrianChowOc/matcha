@@ -6,15 +6,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from './services/user.service';
 import { ImagePreviewService } from './services/image-preview.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { NgOptimizedImage } from '@angular/common';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NgOptimizedImage],
   exports: [
     MaterialModule,
     FlexLayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgOptimizedImage,
   ],
   providers: [UserService, ImagePreviewService],
 })
