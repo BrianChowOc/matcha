@@ -1,4 +1,4 @@
-<div class="display-flex flex-direction-column" *ngIf="user">
+<div class="display-flex flex-direction-column" *ngIf="user$ | async as user">
   <div
     [ngStyle]="{
       'background-image': 'url(' + user.backgroundImage + ')',
@@ -19,9 +19,6 @@
     {{ user.information.username | titlecase }}
   </div>
   <div class="display-flex justify-content-right margin-rigth-50 gap-30">
-    <button mat-stroked-button color="accent" (click)="deleteUser()">
-      <mat-icon>delete</mat-icon> Delete
-    </button>
     <div>
       <button mat-stroked-button color="accent">
         <mat-icon>favorite_border</mat-icon> Like</button

@@ -9,11 +9,12 @@ import { UserService } from '../../../../shared/services/user.service';
   styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent implements OnInit {
-  users!: User[];
+  users$!: Observable<User[]>;
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe((users) => (this.users = users));
+    this.users$ = this.userService.users$;
+    this.userService.getUsers();
   }
 }

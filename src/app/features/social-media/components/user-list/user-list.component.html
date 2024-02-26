@@ -1,4 +1,4 @@
-<div class="display-flex flex-wrap-wrap">
+<div *ngIf="users$ | async as users" class="display-flex flex-wrap-wrap">
   <app-user-list-item
     *ngFor="let user of users"
     [user]="user"

@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Observable, tap } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { User } from 'src/app/shared/models/user.model';
 import { UserService } from 'src/app/shared/services/user.service';
 import { CheckboxService } from '../../connexion/services/checkbox.service';
@@ -20,7 +20,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+  private updateUserSubscription: Subscription | undefined;
+  private deleteUserSubscription: Subscription | undefined;
   userImage!: string | File | ArrayBuffer | null | undefined;
+  userImageUpdate!: File;
   coverImage!: string | ArrayBuffer | null | undefined;
   userImageList: { [key: string]: string | ArrayBuffer | null } = {
     '0': null,
@@ -30,9 +33,7 @@ export class ProfileComponent implements OnInit {
   };
 
   checkboxRows!: { label: string }[][];
-  user!: User;
-
-  profilImgCtrl!: FormControl;
+  user$: Observable<User> = this.userService.ownUser$;
 
   backgroundImageCtrl!: FormControl;
 
@@ -69,17 +70,12 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService
-      .getUserById(this.authService.getUserId())
-      .subscribe((user) => (this.user = user));
-
-    this.initImages();
+    this.userService.getOwnUser();
     this.initPictureForm();
     this.initInterestsForm();
     this.initBiographieCtrl();
     this.initInformationsForm();
     this.initProfilForm();
-    this.profilImgCtrl = this.formBuilder.control('');
     this.backgroundImageCtrl = this.formBuilder.control('');
     this.initMainForm();
     this.checkboxRows = this.checkboxService.checkboxRows;
@@ -152,22 +148,11 @@ export class ProfileComponent implements OnInit {
   private initMainForm(): void {
     this.mainForm = this.formBuilder.group({
       backgroundImage: this.backgroundImageCtrl,
-      profilImg: this.profilImgCtrl,
       imageList: this.imageListForm,
       information: this.informationsForm,
       profil: this.profilForm,
       biographie: this.biographieCtrl,
     });
-  }
-
-  private initImages(): void {
-    if (this.user.imageList) {
-      for (let i = 0; i < this.user.imageList.length; i++) {
-        this.userImageList[i] = this.user.imageList[i];
-      }
-    }
-    this.userImage = this.user.profilImg;
-    this.coverImage = this.user.backgroundImage;
   }
 
   onFileSelected(event: any, imageType: number | 'main' | 'cover'): void {
@@ -184,6 +169,7 @@ export class ProfileComponent implements OnInit {
               this.imagePreviewService.getPreviewImage();
           } else if (imageType === 'main') {
             this.userImage = this.imagePreviewService.getPreviewImage();
+            this.userImageUpdate = file;
           } else if (imageType === 'cover') {
             this.coverImage = this.imagePreviewService.getPreviewImage();
           }
@@ -219,22 +205,43 @@ export class ProfileComponent implements OnInit {
     return interestTab;
   }
 
+  deleteUser() {
+    this.deleteUserSubscription = this.userService
+      .deleteUser(this.authService.getUserId())
+      .subscribe();
+    this.authService.logout();
+    this.router.navigateByUrl('/connexion');
+  }
+
   onSubmit(): void {
     this.mainForm.value.profil.birth = this.datePipe.transform(
       this.mainForm.value.profil.birth,
       'dd-MM-yyyy'
     );
 
-    const updatedUser: User = {
-      ...this.mainForm.value,
-      imageList: this.initImageTab(),
-      interests: this.setInterestsTab(),
-    };
+    const formData = new FormData();
+    if (this.userImageUpdate) {
+      formData.append('profilImg', this.userImageUpdate);
+    }
+    formData.append('information', JSON.stringify(this.informationsForm.value));
+    formData.append('profil', JSON.stringify(this.profilForm.value));
+    formData.append('interests', JSON.stringify(this.setInterestsTab()));
+    formData.append('biographie', this.biographieCtrl.value);
 
-    this.userService
-      .updateUser(this.authService.getUserId(), updatedUser)
-      .subscribe();
+    this.updateUserSubscription = this.userService
+      .updateUser(this.authService.getUserId(), formData)
+      .subscribe(() => {
+        window.location.reload();
+        // this.router.navigateByUrl('/');
+      });
+  }
 
-    this.router.navigateByUrl('/');
+  ngOnDestroy(): void {
+    if (this.updateUserSubscription) {
+      this.updateUserSubscription.unsubscribe();
+    }
+    if (this.deleteUserSubscription) {
+      this.deleteUserSubscription.unsubscribe();
+    }
   }
 }

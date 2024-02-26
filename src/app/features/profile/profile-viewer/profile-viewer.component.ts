@@ -10,23 +10,16 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./profile-viewer.component.scss'],
 })
 export class ProfileViewerComponent implements OnInit {
-  user!: User;
+  user$!: Observable<User>;
   interests!: string[];
 
   constructor(
     private userService: UserService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.userService
-      .getUserById(this.route.snapshot.params['id'])
-      .subscribe((user) => (this.user = user));
-  }
-
-  deleteUser() {
-    this.userService.deleteUser(this.route.snapshot.params['id']).subscribe();
-    this.router.navigateByUrl('/');
+    this.user$ = this.userService.user$;
+    this.userService.getUserById(this.route.snapshot.params['id']);
   }
 }

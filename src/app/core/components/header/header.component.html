@@ -19,6 +19,7 @@
   </button>
   <mat-menu #menu="matMenu">
     <div
+      *ngIf="user$ | async as user"
       class="display-flex justify-content-center align-items-center header-menu"
     >
       <div class="img-size overflow-hidden border-radius-50">
