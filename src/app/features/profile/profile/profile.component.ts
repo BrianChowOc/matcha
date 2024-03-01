@@ -13,6 +13,8 @@ import { ImagePreviewService } from 'src/app/shared/services/image-preview.servi
 import { AuthService } from 'src/app/core/services/auth.service';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/dialog/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -22,6 +24,7 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
   private updateUserSubscription: Subscription | undefined;
   private deleteUserSubscription: Subscription | undefined;
+
   userImage!: string | File | ArrayBuffer | null | undefined;
   userImageUpdate!: File;
   coverImage!: string | ArrayBuffer | null | undefined;
@@ -33,8 +36,7 @@ export class ProfileComponent implements OnInit {
   };
 
   checkboxRows!: { label: string }[][];
-  user$: Observable<User> = this.userService.ownUser$;
-
+  user$!: Observable<User>;
   backgroundImageCtrl!: FormControl;
 
   picture1Ctrl!: FormControl;
@@ -62,7 +64,8 @@ export class ProfileComponent implements OnInit {
     private imagePreviewService: ImagePreviewService,
     private authService: AuthService,
     private datePipe: DatePipe,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {}
 
   getObjectKeys(obj: any): string[] {
@@ -70,7 +73,11 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user$ = this.userService.ownUser$;
     this.userService.getOwnUser();
+    this.user$.subscribe((user) => {
+      this.userImage = user.profilImg;
+    });
     this.initPictureForm();
     this.initInterestsForm();
     this.initBiographieCtrl();
@@ -171,6 +178,8 @@ export class ProfileComponent implements OnInit {
             this.userImage = this.imagePreviewService.getPreviewImage();
             this.userImageUpdate = file;
           } else if (imageType === 'cover') {
+            console.log('COVER');
+
             this.coverImage = this.imagePreviewService.getPreviewImage();
           }
         })
@@ -230,10 +239,39 @@ export class ProfileComponent implements OnInit {
 
     this.updateUserSubscription = this.userService
       .updateUser(this.authService.getUserId(), formData)
-      .subscribe(() => {
-        window.location.reload();
-        // this.router.navigateByUrl('/');
-      });
+      .subscribe(() => this.userService.getOwnUser());
+  }
+
+  openDialogForDeleteUser(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '250px',
+      data: {
+        title: 'Confirmation',
+        message: 'Are you sure you want to delete your profile?',
+        confirmText: 'OK',
+        cancelText: 'Cancel',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.deleteUser();
+    });
+  }
+
+  openDialogForUpdateUser(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '250px',
+      data: {
+        title: 'Confirmation',
+        message: 'Update your profile?',
+        confirmText: 'OK',
+        cancelText: 'Cancel',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.onSubmit();
+    });
   }
 
   ngOnDestroy(): void {

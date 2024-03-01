@@ -9,7 +9,7 @@ import { CheckboxService } from '../connexion/services/checkbox.service';
 
 @NgModule({
   declarations: [ProfileComponent, ProfileViewerComponent],
-  imports: [CommonModule, ProfileRoutingModule, SharedModule],
+  imports: [ProfileRoutingModule, SharedModule],
   providers: [CheckboxService],
 })
 export class ProfileModule {}

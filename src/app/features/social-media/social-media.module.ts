@@ -9,6 +9,6 @@ import { UserService } from '../../shared/services/user.service';
 
 @NgModule({
   declarations: [UserListItemComponent, UserListComponent],
-  imports: [CommonModule, SocialMediaRoutingModule, SharedModule],
+  imports: [SocialMediaRoutingModule, SharedModule],
 })
 export class SocialMediaModule {}
