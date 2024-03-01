@@ -1,12 +1,12 @@
-<div class="display-flex flex-direction-column" *ngIf="user$ | async as user">
+<div
+  class="display-flex flex-direction-column"
+  *ngIf="user$ | async as user"
+  countSubscriptions
+>
   <div
-    [ngStyle]="{
-      'background-image': 'url(' + user.backgroundImage + ')',
-      'background-size': 'cover',
-      'background-position': 'center'
-    }"
-    class="display-flex justify-content-center align-items-end height-325px width-100 position-relative"
+    class="display-flex justify-content-center align-items-end height-325px width-100 position-relative display-flex"
   >
+    <img *ngIf="coverImage" [src]="coverImage" class="img-cover" />
     <button
       class="button-cover position-absolute position-relative"
       mat-raised-button
@@ -22,11 +22,11 @@
       <mat-icon>camera_alt</mat-icon><span>Change the cover photo</span>
     </button>
     <div
-      class="img-size overflow-hidden border-radius-50 img-border margin-bottom-negative-80px"
+      class="z-index-1 img-size overflow-hidden border-radius-50 img-border margin-bottom-negative-80px background-color-white"
     >
-      <img class="display-block height-100 width-100" [src]="user.profilImg" />
+      <img class="img-user" [src]="userImage" />
     </div>
-    <div class="display-flex position-relative">
+    <div class="display-flex position-relative z-index-50">
       <button
         class="button-image-profil position-relative"
         mat-fab
@@ -49,7 +49,11 @@
     {{ user.information.username | titlecase }}
   </div>
   <div class="display-flex justify-content-right margin-rigth-50 gap-30">
-    <button mat-stroked-button color="accent" (click)="deleteUser()">
+    <button
+      mat-stroked-button
+      color="accent"
+      (click)="openDialogForDeleteUser()"
+    >
       <mat-icon>delete</mat-icon> Delete
     </button>
   </div>
@@ -247,7 +251,7 @@
   </div>
   <div class="display-flex margin-bottom-25 justify-content-center">
     <button
-      (click)="onSubmit()"
+      (click)="openDialogForUpdateUser()"
       class="color-white"
       mat-raised-button
       color="primary"

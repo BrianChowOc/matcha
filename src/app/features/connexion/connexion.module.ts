@@ -15,12 +15,7 @@ import { ConnexionLayoutComponent } from './components/connexion-layout/connexio
     BoardingComponent,
     ConnexionLayoutComponent,
   ],
-  imports: [
-    CommonModule,
-    ConnexionRoutingModule,
-    SharedModule,
-    MatStepperModule,
-  ],
+  imports: [ConnexionRoutingModule, SharedModule, MatStepperModule],
   exports: [ConnexionLayoutComponent],
   providers: [CheckboxService, DatePipe],
 })
