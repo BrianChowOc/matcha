@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './components/login/login.component';
 import { SharedModule } from '../shared/shared.module';
-import { ConnexionModule } from '../features/connexion/connexion.module';
+import { ConnexionModule } from '../pages/connexion/connexion.module';
 
 @NgModule({
   declarations: [LoginComponent],

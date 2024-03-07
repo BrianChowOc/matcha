@@ -5,10 +5,9 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
-import { CheckboxService } from '../../services/checkbox.service';
-import { ImagePreviewService } from 'src/app/shared/services/image-preview.service';
-import { User } from 'src/app/shared/models/user.model';
-import { UserService } from 'src/app/shared/services/user.service';
+import { CheckboxService } from '../../../services/checkbox.service';
+import { ImagePreviewService } from 'src/app/core/services/image-preview.service';
+import { UserService } from 'src/app/core/services/user.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { Subscription, tap } from 'rxjs';

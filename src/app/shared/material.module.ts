@@ -32,6 +32,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
   ],
 })
 export class MaterialModule {}

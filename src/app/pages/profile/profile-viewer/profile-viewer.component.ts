@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { User } from 'src/app/shared/models/user.model';
-import { UserService } from 'src/app/shared/services/user.service';
+import { User } from 'src/app/core/models/user.model';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-profile-viewer',

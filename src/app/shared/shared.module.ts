@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { UserService } from './services/user.service';
-import { ImagePreviewService } from './services/image-preview.service';
+import { ImagePreviewService } from '../core/services/image-preview.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgOptimizedImage } from '@angular/common';
 import { ConfirmDialogModule } from './dialog/dialog.module';
@@ -26,6 +25,6 @@ import { ConfirmDialogModule } from './dialog/dialog.module';
     ConfirmDialogModule,
     CommonModule,
   ],
-  providers: [UserService, ImagePreviewService],
+  providers: [ImagePreviewService],
 })
 export class SharedModule {}

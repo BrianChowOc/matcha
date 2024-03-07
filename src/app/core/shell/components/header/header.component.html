@@ -1,4 +1,4 @@
-<mat-toolbar>
+<mat-toolbar *ngIf="user$ | async as user">
   <span class="example-spacer color-secondary">MATCHA</span>
   <div class="link-header">
     <a routerLink="/">
@@ -19,7 +19,6 @@
   </button>
   <mat-menu #menu="matMenu">
     <div
-      *ngIf="user$ | async as user"
       class="display-flex justify-content-center align-items-center header-menu"
     >
       <div class="img-size overflow-hidden border-radius-50">

@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { environment } from 'src/app/environments/environment';
-import { User } from 'src/app/shared/models/user.model';
+import { User } from 'src/app/core/models/user.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class UserService {
   private _ownUser$ = new BehaviorSubject<User>(new User());
   get ownUser$(): Observable<User> {
@@ -22,7 +24,31 @@ export class UserService {
     return this._user$.asObservable();
   }
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {
+    console.log('Instance of MyService created:', this);
+  }
+
+  private subscriptionsCount = 0;
+
+  getSubscriptionsCount(): number {
+    return this.subscriptionsCount;
+  }
+
+  // Méthode pour effectuer une souscription à un observable
+  subscribeToObservable(observable: Observable<any>): void {
+    this.subscriptionsCount++; // Incrémenter le compteur de souscriptions
+    observable.subscribe({
+      next: (value) => {
+        // Traitement des données
+      },
+      error: (error) => {
+        // Gérer les erreurs
+      },
+      complete: () => {
+        this.subscriptionsCount--; // Décrémenter le compteur de souscriptions
+      },
+    });
+  }
 
   addUser(user: FormData): Observable<User> {
     return this.http.post<User>(`${environment.apiUrl}/auth/signup`, user);
@@ -63,9 +89,7 @@ export class UserService {
           return [];
         })
       )
-      .subscribe((ownUser) => {
-        this._ownUser$.next(ownUser);
-      });
+      .subscribe((ownUser) => this._ownUser$.next(ownUser));
   }
 
   updateUser(id: string | null, updatedUserData: FormData): Observable<User> {
