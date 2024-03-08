@@ -14,6 +14,9 @@ export class User {
   interests!: Array<string>;
   biographie!: string;
   profilImg?: File;
-  imageList?: Array<string>;
-  backgroundImage?: string;
+  picture1?: File;
+  picture2?: File;
+  picture3?: File;
+  picture4?: File;
+  backgroundImage?: File;
 }

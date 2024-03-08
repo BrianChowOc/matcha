@@ -11,7 +11,11 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class ProfileViewerComponent implements OnInit {
   user$!: Observable<User>;
+  user!: User;
+
   interests!: string[];
+
+  imageTab!: (string | File | ArrayBuffer | null | undefined)[];
 
   constructor(
     private userService: UserService,
@@ -21,5 +25,16 @@ export class ProfileViewerComponent implements OnInit {
   ngOnInit(): void {
     this.user$ = this.userService.user$;
     this.userService.getUserById(this.route.snapshot.params['id']);
+    this.user$.subscribe((user) => {
+      this.user = user;
+      this.initImages();
+    });
+  }
+
+  private initImages() {
+    this.imageTab[0] = this.user.picture1;
+    this.imageTab[1] = this.user.picture2;
+    this.imageTab[2] = this.user.picture3;
+    this.imageTab[3] = this.user.picture4;
   }
 }

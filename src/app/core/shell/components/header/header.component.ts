@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  user$!: Observable<User>;
+  user$ = this.userService.ownUser$;
 
   constructor(
     private authService: AuthService,
@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.user$ = this.userService.ownUser$;
     this.userService.getOwnUser();
   }
 

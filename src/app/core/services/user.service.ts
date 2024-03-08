@@ -24,31 +24,7 @@ export class UserService {
     return this._user$.asObservable();
   }
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-    console.log('Instance of MyService created:', this);
-  }
-
-  private subscriptionsCount = 0;
-
-  getSubscriptionsCount(): number {
-    return this.subscriptionsCount;
-  }
-
-  // Méthode pour effectuer une souscription à un observable
-  subscribeToObservable(observable: Observable<any>): void {
-    this.subscriptionsCount++; // Incrémenter le compteur de souscriptions
-    observable.subscribe({
-      next: (value) => {
-        // Traitement des données
-      },
-      error: (error) => {
-        // Gérer les erreurs
-      },
-      complete: () => {
-        this.subscriptionsCount--; // Décrémenter le compteur de souscriptions
-      },
-    });
-  }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   addUser(user: FormData): Observable<User> {
     return this.http.post<User>(`${environment.apiUrl}/auth/signup`, user);
@@ -73,11 +49,12 @@ export class UserService {
     this.http
       .get<User>(`${environment.apiUrl}/user/${id}`)
       .pipe(
-        tap((user) => {
-          this._user$.next(user);
+        catchError(() => {
+          this._ownUser$.error('An error occurred');
+          return [];
         })
       )
-      .subscribe();
+      .subscribe((user) => this._user$.next(user));
   }
 
   getOwnUser() {
