@@ -33,14 +33,39 @@
         Pictures
       </div>
       <div class="grid-container margin-10">
-        <div *ngFor="let image of imageTab">
-          <div *ngIf="image" class="image-list-container">
-            <img
-              class="display-block height-100 width-100"
-              mat-card-image
-              [src]="image"
-            />
-          </div>
+        <div
+          class="picture-container display-flex justify-content-center align-items-center"
+        >
+          <img
+            class="display-block height-100 width-100 object-fil-cover"
+            cImg
+            fluid
+            [src]="user.picture1"
+          />
+        </div>
+        <div class="picture-container">
+          <img
+            class="display-block height-100 width-100 object-fil-cover"
+            cImg
+            fluid
+            [src]="user.picture2"
+          />
+        </div>
+        <div class="picture-container">
+          <img
+            class="display-block height-100 width-100 object-fil-cover"
+            cImg
+            fluid
+            [src]="user.picture3"
+          />
+        </div>
+        <div class="picture-container">
+          <img
+            class="display-block height-100 width-100 object-fil-cover"
+            cImg
+            fluid
+            [src]="user.picture4"
+          />
         </div>
       </div>
     </div>

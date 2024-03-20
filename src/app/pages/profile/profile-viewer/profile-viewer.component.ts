@@ -25,16 +25,5 @@ export class ProfileViewerComponent implements OnInit {
   ngOnInit(): void {
     this.user$ = this.userService.user$;
     this.userService.getUserById(this.route.snapshot.params['id']);
-    this.user$.subscribe((user) => {
-      this.user = user;
-      this.initImages();
-    });
-  }
-
-  private initImages() {
-    this.imageTab[0] = this.user.picture1;
-    this.imageTab[1] = this.user.picture2;
-    this.imageTab[2] = this.user.picture3;
-    this.imageTab[3] = this.user.picture4;
   }
 }

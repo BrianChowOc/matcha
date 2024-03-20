@@ -72,7 +72,6 @@ export class ProfileComponent implements OnInit {
   biographieCtrl!: FormControl;
 
   mainForm!: FormGroup;
-  datePipe: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -81,6 +80,7 @@ export class ProfileComponent implements OnInit {
     private imagePreviewService: ImagePreviewService,
     private authService: AuthService,
     private router: Router,
+    private datePipe: DatePipe,
     public dialog: MatDialog
   ) {}
 
@@ -233,6 +233,11 @@ export class ProfileComponent implements OnInit {
         this.mainForm.value.profil.birth,
         'dd-MM-yyyy'
       );
+    } else {
+      this.mainForm.value.profil.birth = this.mainForm.value.profil.birth
+        .split('-')
+        .reverse()
+        .join('-');
     }
     const formData = new FormData();
     if (this.userImageUpdate) {
@@ -255,6 +260,8 @@ export class ProfileComponent implements OnInit {
     }
 
     formData.append('information', JSON.stringify(this.informationsForm.value));
+    console.log('profil', this.profilForm.value);
+
     formData.append('profil', JSON.stringify(this.profilForm.value));
     formData.append('interests', JSON.stringify(this.setInterestsTab()));
     formData.append('biographie', this.biographieCtrl.value);

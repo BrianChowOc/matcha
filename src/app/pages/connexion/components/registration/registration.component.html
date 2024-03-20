@@ -10,35 +10,54 @@
           class="display-flex flex-direction-column align-items-center height-100"
         >
           <div class="display-flex flex-direction-column width-100">
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" class="margin-bottom-10">
               <mat-label>Username</mat-label>
-              <input type="text" matInput formControlName="username" />
+              <input type="text" matInput [formControl]="usernameCtrl" />
+              <mat-error>{{
+                getFormControlErrorText(step1Form.get("username"))
+              }}</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Email</mat-label>
-              <input type="email" matInput formControlName="email" />
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-              <mat-label>Password</mat-label>
-              <input type="password" matInput formControlName="password" />
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="margin-bottom-25">
-              <mat-label>Confirm password</mat-label>
-              <input
-                type="password"
-                matInput
-                [formControl]="confirmPasswordCtrl"
-              />
-            </mat-form-field>
+            <div class="width-100">
+              <mat-form-field
+                appearance="fill"
+                class="width-100 margin-bottom-10"
+              >
+                <mat-label>Email</mat-label>
+                <input
+                  type="email"
+                  matInput
+                  [formControl]="emailCtrl"
+                  name="email"
+                />
+                <mat-error>{{
+                  getFormControlErrorText(step1Form.get("email"))
+                }}</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="width-100">
+              <mat-form-field
+                appearance="fill"
+                class="width-100 margin-bottom-10"
+              >
+                <mat-label>Password</mat-label>
+                <input type="password" matInput [formControl]="passwordCtrl" />
+                <mat-error>{{
+                  getFormControlErrorText(step1Form.get("password"))
+                }}</mat-error>
+              </mat-form-field>
+            </div>
           </div>
         </form>
-
         <div class="display-flex gap-30 justify-content-center">
           <button
             mat-flat-button
             color="primary"
             class="color-white"
             matStepperNext
+            [ngStyle]="{
+              'pointer-events': step1Form.valid ? 'auto' : 'none',
+              opacity: step1Form.valid ? 1 : 0.5
+            }"
           >
             Next
           </button>
@@ -81,6 +100,7 @@
                   [matDatepicker]="picker"
                   formControlName="birth"
                 />
+                <mat-error>This field is required</mat-error>
                 <mat-hint>DD/MM/YYYY</mat-hint>
                 <mat-datepicker-toggle
                   matIconSuffix
@@ -91,6 +111,7 @@
               <mat-form-field appearance="fill">
                 <mat-label>City</mat-label>
                 <input type="text" matInput formControlName="city" />
+                <mat-error>This field is required</mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -107,8 +128,12 @@
             <button
               mat-flat-button
               color="primary"
-              class="color-white min-width-130"
+              class="color-white"
               matStepperNext
+              [ngStyle]="{
+                'pointer-events': step2Form.valid ? 'auto' : 'none',
+                opacity: step2Form.valid ? 1 : 0.5
+              }"
             >
               Next
             </button>
@@ -178,6 +203,7 @@
                   placeholder="Description"
                   [formControl]="step4Ctrl"
                 ></textarea>
+                <mat-error>{{ getFormControlErrorText(step4Ctrl) }}</mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -194,8 +220,12 @@
             <button
               mat-flat-button
               color="primary"
-              class="color-white min-width-130"
+              class="color-white"
               matStepperNext
+              [ngStyle]="{
+                'pointer-events': step4Ctrl.valid ? 'auto' : 'none',
+                opacity: step4Ctrl.valid ? 1 : 0.5
+              }"
             >
               Next
             </button>

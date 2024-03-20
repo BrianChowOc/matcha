@@ -1,6 +1,9 @@
 @use "@angular/material" as mat;
-
 @include mat.core();
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 $primary-palette: (
   50: #e4f5f8,
@@ -376,4 +379,8 @@ button {
 
 .z-index-50 {
   z-index: 50;
+}
+
+.error {
+  color: #f44336
 }

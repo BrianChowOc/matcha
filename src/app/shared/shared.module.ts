@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -25,6 +25,6 @@ import { ConfirmDialogModule } from './dialog/dialog.module';
     ConfirmDialogModule,
     CommonModule,
   ],
-  providers: [ImagePreviewService],
+  providers: [ImagePreviewService, DatePipe],
 })
 export class SharedModule {}

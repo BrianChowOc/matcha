@@ -4,13 +4,14 @@ import {
   FormGroup,
   FormBuilder,
   Validators,
+  AbstractControl,
 } from '@angular/forms';
 import { CheckboxService } from '../../../services/checkbox.service';
 import { ImagePreviewService } from 'src/app/core/services/image-preview.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { Subscription, tap } from 'rxjs';
+import { Observable, Subscription, map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-registration',
@@ -26,10 +27,13 @@ export class RegistrationComponent implements OnInit {
 
   interests: string[] = [];
 
-  passwordCtrl!: FormControl;
-  confirmPasswordCtrl!: FormControl;
+  //----- Step1 data -----
   step1Form!: FormGroup;
+  usernameCtrl!: FormControl;
+  emailCtrl!: FormControl;
+  passwordCtrl!: FormControl;
 
+  //----- Step2 data -----
   step2Form!: FormGroup;
 
   step3Form!: FormGroup;
@@ -57,22 +61,29 @@ export class RegistrationComponent implements OnInit {
   }
 
   private initStep1Form(): void {
-    this.passwordCtrl = this.formBuilder.control('', Validators.required);
-    this.confirmPasswordCtrl = this.formBuilder.control(
-      '',
-      Validators.required
-    );
+    this.usernameCtrl = this.formBuilder.control('', {
+      validators: [Validators.required],
+      updateOn: 'change',
+    });
+    this.emailCtrl = this.formBuilder.control('', {
+      validators: [Validators.required, Validators.email],
+      updateOn: 'change',
+    });
+    this.passwordCtrl = this.formBuilder.control('', {
+      validators: [Validators.required, Validators.minLength(8)],
+      updateOn: 'change',
+    });
     this.step1Form = this.formBuilder.group({
-      username: ['', Validators.required],
-      email: ['', Validators.required],
+      username: this.usernameCtrl,
+      email: this.emailCtrl,
       password: this.passwordCtrl,
     });
   }
 
   private initStep2Form(): void {
     this.step2Form = this.formBuilder.group({
-      genre: ['', Validators.required],
-      sexualOrientation: ['', Validators.required],
+      genre: ['man'],
+      sexualOrientation: ['heterosexual'],
       birth: ['', Validators.required],
       city: ['', Validators.required],
     });
@@ -96,7 +107,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   private initStep4Form(): void {
-    this.step4Ctrl = this.formBuilder.control('');
+    this.step4Ctrl = this.formBuilder.control('', [Validators.required]);
   }
 
   private initMainForm(): void {
@@ -105,6 +116,17 @@ export class RegistrationComponent implements OnInit {
       profil: this.step2Form,
       biographie: this.step4Ctrl,
     });
+  }
+
+  getFormControlErrorText(ctrl: AbstractControl | null) {
+    if (ctrl?.hasError('required')) {
+      return 'This field is required';
+    } else if (ctrl?.hasError('email')) {
+      return 'Please enter a valid email address';
+    } else if (ctrl?.hasError('minlength')) {
+      return 'Your password must be at least 8 characters long';
+    }
+    return 'this field contains an error';
   }
 
   onFileSelected(event: any): void {
