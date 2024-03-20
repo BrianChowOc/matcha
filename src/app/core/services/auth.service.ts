@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 
 @Injectable({
@@ -12,10 +12,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(
-    email: string,
-    password: string
-  ): Observable<{ token: string; userId: string }> {
+  login(email: string, password: string): Observable<boolean> {
     const credentials = { email, password };
     return this.http
       .post<{ token: string; userId: string }>(
@@ -25,6 +22,14 @@ export class AuthService {
       .pipe(
         tap((response) => {
           this.setToken(response.token, response.userId);
+        }),
+        map(() => true),
+        catchError((error) => {
+          console.error(
+            'Une erreur est survenue lors de la connexion :',
+            error
+          );
+          return of(false);
         })
       );
   }

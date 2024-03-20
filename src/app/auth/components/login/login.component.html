@@ -25,6 +25,11 @@
     >
       Login
     </button>
+    <small
+      class="error flex w-full justify-center"
+      *ngIf="showLoginError$ | async"
+      >Incorrect email and/or password</small
+    >
     <div
       class="align-self-center justify-self-end margin-top-auto margin-bottom-10"
     >

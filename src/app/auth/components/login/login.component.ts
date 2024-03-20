@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -17,6 +17,10 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class LoginComponent implements OnInit {
   emailCtrl!: FormControl;
   passwordCtrl!: FormControl;
+  loginForm!: FormGroup;
+
+  subscription!: Subscription;
+  showLoginError$!: Observable<boolean>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,18 +29,35 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.emailCtrl = this.formBuilder.control('', Validators.required);
-    this.passwordCtrl = this.formBuilder.control('', Validators.required);
+    this.initLoginForm();
   }
 
-  onLogin() {
-    this.auth
-      .login(this.emailCtrl.value, this.passwordCtrl.value)
-      .pipe(
-        tap(() => {
-          if (this.auth.isAuthenticated()) this.router.navigateByUrl('/');
-        })
-      )
-      .subscribe();
+  initLoginForm() {
+    this.emailCtrl = this.formBuilder.control('', Validators.required);
+    this.passwordCtrl = this.formBuilder.control('', Validators.required);
+    this.loginForm = this.formBuilder.group({
+      email: this.emailCtrl,
+      password: this.passwordCtrl,
+    });
+  }
+
+  onLogin(): void {
+    const email = this.emailCtrl.value;
+    const password = this.passwordCtrl.value;
+    this.subscription = this.auth
+      .login(email, password)
+      .subscribe((success) => {
+        if (success) {
+          this.router.navigateByUrl('/');
+        } else {
+          this.showLoginError$ = of(true);
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }
