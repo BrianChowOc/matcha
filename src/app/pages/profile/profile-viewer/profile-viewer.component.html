@@ -40,7 +40,11 @@
             class="display-block height-100 width-100 object-fil-cover"
             cImg
             fluid
-            [src]="user.picture1"
+            [src]="
+              user.picture1
+                ? user.picture1
+                : '../../../assets/images/no-image.png'
+            "
           />
         </div>
         <div class="picture-container">
@@ -48,7 +52,11 @@
             class="display-block height-100 width-100 object-fil-cover"
             cImg
             fluid
-            [src]="user.picture2"
+            [src]="
+              user.picture2
+                ? user.picture2
+                : '../../../assets/images/no-image.png'
+            "
           />
         </div>
         <div class="picture-container">
@@ -56,7 +64,11 @@
             class="display-block height-100 width-100 object-fil-cover"
             cImg
             fluid
-            [src]="user.picture3"
+            [src]="
+              user.picture3
+                ? user.picture3
+                : '../../../assets/images/no-image.png'
+            "
           />
         </div>
         <div class="picture-container">
@@ -64,7 +76,11 @@
             class="display-block height-100 width-100 object-fil-cover"
             cImg
             fluid
-            [src]="user.picture4"
+            [src]="
+              user.picture4
+                ? user.picture4
+                : '../../../assets/images/no-image.png'
+            "
           />
         </div>
       </div>
