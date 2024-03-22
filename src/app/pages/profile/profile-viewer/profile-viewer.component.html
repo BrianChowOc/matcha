@@ -1,25 +1,21 @@
-<div class="display-flex flex-direction-column" *ngIf="user$ | async as user">
+<div class="flex flex-col" *ngIf="user$ | async as user">
   <div
     [ngStyle]="{
       'background-image': 'url(' + user.backgroundImage + ')',
       'background-size': 'cover',
       'background-position': 'center'
     }"
-    class="display-flex justify-content-center align-items-end height-325px width-100"
+    class="flex justify-center items-end h-80 w-full"
   >
-    <div
-      class="img-size overflow-hidden border-radius-50 img-border margin-bottom-negative-80px"
-    >
-      <img class="display-block height-100 width-100" [src]="user.profilImg" />
+    <div class="h-60 w-60 overflow-hidden rounded-full img-border -mb-20">
+      <img class="block h-full w-full" [src]="user.profilImg" />
     </div>
   </div>
-  <div
-    class="margin-top-100px display-flex justify-content-center font-weight-55px font-weight-bold margin-bottom-100"
-  >
+  <div class="mt-24 flex justify-center text-5xl font-bold mb-24">
     {{ user.information.username | titlecase }}
   </div>
-  <div class="display-flex justify-content-right margin-rigth-50 gap-30">
-    <div>
+  <div class="flex justify-content-right mr-12">
+    <div class="flex gap-7">
       <button mat-stroked-button color="accent">
         <mat-icon>favorite_border</mat-icon> Like</button
       ><button mat-stroked-button color="primary">
@@ -27,17 +23,15 @@
       </button>
     </div>
   </div>
-  <div class="display-flex margin-50 gap-30">
-    <div class="padding-10 border-container flex-1">
-      <div class="color-primary font-weight-bold margin-bottom-25">
-        Pictures
-      </div>
-      <div class="grid-container margin-10">
+  <div class="flex m-12 gap-7">
+    <div class="p-2 border-container flex-1">
+      <div class="color-primary font-bold mb-6">Pictures</div>
+      <div class="grid-container m-2">
         <div
-          class="picture-container display-flex justify-content-center align-items-center"
+          class="w-60 h-36 overflow-hidden relative picture-border-container flex justify-center items-center"
         >
           <img
-            class="display-block height-100 width-100 object-fil-cover"
+            class="block h-full w-full object-cover"
             cImg
             fluid
             [src]="
@@ -47,9 +41,11 @@
             "
           />
         </div>
-        <div class="picture-container">
+        <div
+          class="w-60 h-36 overflow-hidden relative picture-border-container"
+        >
           <img
-            class="display-block height-100 width-100 object-fil-cover"
+            class="display-block h-full w-full object-cover"
             cImg
             fluid
             [src]="
@@ -59,9 +55,11 @@
             "
           />
         </div>
-        <div class="picture-container">
+        <div
+          class="w-60 h-36 overflow-hidden relative picture-border-container"
+        >
           <img
-            class="display-block height-100 width-100 object-fil-cover"
+            class="display-block h-full w-full object-cover"
             cImg
             fluid
             [src]="
@@ -71,9 +69,11 @@
             "
           />
         </div>
-        <div class="picture-container">
+        <div
+          class="w-60 h-36 overflow-hidden relative picture-border-container"
+        >
           <img
-            class="display-block height-100 width-100 object-fil-cover"
+            class="display-block h-full w-full object-cover"
             cImg
             fluid
             [src]="
@@ -85,36 +85,28 @@
         </div>
       </div>
     </div>
-    <div
-      class="display-flex flex-direction-column border-container padding-30 flex-2"
-    >
-      <div class="margin-bottom-50">
+    <div class="flex flex-col border-container p-7 flex-2">
+      <div class="mb-12">
         {{ user.biographie }}
       </div>
-      <div class="display-flex flex-direction-column align-items-center">
-        <div class="display-flex gap-10 margin-bottom-50">
-          <div
-            class="display-flex flex-direction-column align-items-center gap-30"
-          >
-            <div class="font-weight-bold">Genre</div>
-            <div class="font-weight-bold">Sexual orientation</div>
-            <div class="font-weight-bold">Age</div>
-            <div class="font-weight-bold">Location</div>
+      <div class="flex flex-col items-center">
+        <div class="flex gap-2 mb-12">
+          <div class="flex flex-col items-center gap-7">
+            <div class="font-bold">Genre</div>
+            <div class="font-bold">Sexual orientation</div>
+            <div class="font-bold">Age</div>
+            <div class="font-bold">Location</div>
           </div>
-          <div
-            class="display-flex flex-direction-column align-items-center gap-30"
-          >
+          <div class="flex flex-col items-center gap-7">
             <div>{{ user.profil.genre }}</div>
             <div>{{ user.profil.sexualOrientation }}</div>
             <div>{{ user.profil.birth }}</div>
             <div>{{ user.profil.city }}</div>
           </div>
         </div>
-        <div class="display-flex justify-content-center gap-10">
+        <div class="flex justify-center gap-2">
           <div *ngFor="let interest of user.interests">
-            <div
-              class="background-secondary color-white padding-5 border-radius-15"
-            >
+            <div class="background-secondary color-white p-1 rounded-2xl">
               {{ interest }}
             </div>
           </div>

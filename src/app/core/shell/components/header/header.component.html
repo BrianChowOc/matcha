@@ -1,6 +1,6 @@
 <mat-toolbar>
-  <span class="example-spacer color-secondary">MATCHA</span>
-  <div class="link-header">
+  <span class="flex flex-auto color-secondary">MATCHA</span>
+  <div class="flex justify-around items-center h-16 w-96">
     <a routerLink="/">
       <mat-icon>home</mat-icon>
     </a>
@@ -19,17 +19,14 @@
   </button>
   <mat-menu #menu="matMenu">
     <div
-      class="display-flex justify-content-center align-items-center header-menu"
+      class="flex justify-center items-center pt-2.5 pb-2.5 mx-1.5 mb-0.5 bg-[#F7F7FA]"
       *ngIf="user$ | async as user"
     >
-      <div class="img-size overflow-hidden border-radius-50">
-        <img
-          class="display-block height-100 width-100"
-          [src]="user.profilImg"
-        />
+      <div class="w-24 h-24 overflow-hidden rounded-full">
+        <img class="block h-full w-full" [src]="user.profilImg" />
       </div>
-      <div class="text-header">
-        <div class="font-weight-bold">
+      <div class="ml-2">
+        <div class="font-bold">
           {{ user.information.username | uppercase }}
         </div>
         <div [ngStyle]="{ color: '#8A98BA' }">
@@ -38,28 +35,21 @@
         <div [ngStyle]="{ color: '#2A2E43' }">{{ user.profil.birth }}</div>
       </div>
     </div>
-    <button mat-menu-item class="display-flex space-between">
-      <div class="order-0 display-flex">
+    <button mat-menu-item class="flex justify-between">
+      <div class="order-0 flex">
         <mat-icon [ngStyle]="{ color: '#C4CBDC' }">account_circle</mat-icon>
         <a routerLink="/profile">My profil</a>
       </div>
       <mat-icon class="order-1 justify-self-end">keyboard_arrow_right</mat-icon>
     </button>
-    <button mat-menu-item class="display-flex space-between">
-      <mat-icon class="order-0 display-flex" [ngStyle]="{ color: '#C4CBDC' }"
-        >search</mat-icon
-      >
-      <span class="text-item">Advanced search</span>
-      <mat-icon class="order-1 justify-self-end">keyboard_arrow_right</mat-icon>
-    </button>
     <button
       mat-menu-item
-      class="display-flex justify-content-right background-color-blue"
+      class="flex justify-content-right"
       [ngStyle]="{ color: '#2A2E43' }"
       (click)="onLogout()"
     >
       <mat-icon>arrow_forward</mat-icon>
-      <span class="text-item">Log out</span>
+      <span>Log out</span>
     </button>
   </mat-menu>
 </mat-toolbar>

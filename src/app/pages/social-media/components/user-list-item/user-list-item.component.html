@@ -1,14 +1,11 @@
-<mat-card class="width-full">
+<mat-card class="w-full">
   <mat-card-content>
-    <div class="display-flex align-items-center">
-      <div class="img-size overflow-hidden border-radius-50">
-        <img
-          class="display-block height-100 width-100"
-          [src]="user.profilImg"
-        />
+    <div class="flex items-center">
+      <div class="w-28 h-28 overflow-hidden rounded-full">
+        <img class="block h-full w-full" [src]="user.profilImg" />
       </div>
-      <div class="margin-left-5">
-        <div class="font-weight-bold">
+      <div class="ml-1">
+        <div class="font-bold">
           {{ user.information.username | titlecase }}
         </div>
         <div class="color-primary">
@@ -21,15 +18,13 @@
   <mat-card-footer>
     <mat-card-actions class="justify-content-right">
       <button
-        class="color-white display-flex"
+        class="color-white flex"
         mat-raised-button
         color="primary"
         (click)="onProfile()"
       >
-        <span class="order-0">View profile</span>
-        <mat-icon class="order-1 justify-self-end margin-left-5"
-          >account_circle</mat-icon
-        >
+        <span class="order-0 mr-3">View profile</span>
+        <mat-icon class="order-1 justify-self-end">account_circle</mat-icon>
       </button>
     </mat-card-actions>
   </mat-card-footer>

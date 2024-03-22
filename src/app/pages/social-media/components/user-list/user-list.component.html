@@ -1,7 +1,7 @@
-<div *ngIf="users$ | async as users" class="display-flex flex-wrap-wrap">
+<div *ngIf="users$ | async as users" class="flex flex-wrap">
   <app-user-list-item
     *ngFor="let user of users"
     [user]="user"
-    class="margin width-365"
+    class="m-12 w-80"
   ></app-user-list-item>
 </div>

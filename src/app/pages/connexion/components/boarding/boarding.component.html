@@ -1,25 +1,23 @@
 <app-connexion-layout>
-  <div class="display-flex flex-direction-column height-100">
-    <div class="font-weight-bold align-self-center font-size-20">
+  <div class="flex flex-col h-full">
+    <div class="flex font-bold self-center font-size-20">
       Find love on our dating site
     </div>
-    <div
-      class="display-flex flex-direction-column justify-content-center height-50"
-    >
-      <a routerLink="/auth/login" class="color-white">
+    <div class="flex flex-col justify-center h-2/4">
+      <a routerLink="/auth/login" class="color-white no-underline">
         <button
           mat-button
-          class="color-white margin-10 width-100"
+          class="color-white m-2 w-full"
           mat-raised-button
           color="primary"
         >
           Login
         </button>
       </a>
-      <a routerLink="/connexion/registration" class="color-white">
+      <a routerLink="/connexion/registration" class="color-white no-underline">
         <button
           mat-button
-          class="color-white margin-10 width-100"
+          class="color-white m-2 w-full"
           mat-raised-button
           color="accent"
         >

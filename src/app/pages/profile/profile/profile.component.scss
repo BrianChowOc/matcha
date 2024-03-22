@@ -52,7 +52,6 @@
 
 .border-container {
     border: 1px solid #ffa384;
-    border-radius: 10px;
 }
 
 .input-picture {
@@ -66,12 +65,8 @@
     z-index: 50;
   }
 
-  .picture-container {
-    width: 350px;
-    height: 200px;
-    overflow: hidden;
+  .picture-border-container {
     border: 1px dotted #8A98BA;
-    position: relative;
 }
 
 .img-user {

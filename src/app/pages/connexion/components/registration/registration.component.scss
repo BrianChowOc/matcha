@@ -12,24 +12,12 @@
     color: white !important;
 }
 
-.text-area-height {
+.height-area {
     height: 200px !important;
 }
 
-.input-picture {
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    position: absolute;
-    cursor: pointer;
-  }
-
-  .picture-container {
-    width: 350px;
-    height: 200px;
-    overflow: hidden;
+.border-container {
     border: 1px dotted #8A98BA;
-    position: relative;
 }
 
 ::ng-deep .mat-horizontal-stepper-header-container {

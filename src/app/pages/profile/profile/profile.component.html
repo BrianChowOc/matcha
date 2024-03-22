@@ -1,49 +1,43 @@
-<div class="display-flex flex-direction-column" *ngIf="user">
-  <div
-    class="display-flex justify-content-center align-items-end height-325px width-100 position-relative display-flex"
-  >
+<div class="flex flex-col" *ngIf="user">
+  <div class="flex justify-center items-end h-80 w-full relative">
     <img *ngIf="coverImage" [src]="coverImage" class="img-cover" />
-    <button
-      class="button-cover position-absolute position-relative"
-      mat-raised-button
-    >
-      <input
-        type="file"
-        placeholder="Choisir un fichier"
-        name="fileInput"
-        class="input-picture"
-        (change)="onFileSelected($event, 'cover')"
-      />
-      <mat-icon>camera_alt</mat-icon><span>Change the cover photo</span>
-    </button>
+
     <div
-      class="z-index-1 img-size overflow-hidden border-radius-50 img-border margin-bottom-negative-80px background-color-white"
+      class="z-0 w-60 h-60 overflow-hidden rounded-full img-border -mb-20 background-color-white"
     >
-      <img class="img-user" [src]="userImage" />
+      <img class="max-w-full h-auto background-color-white" [src]="userImage" />
     </div>
-    <div class="display-flex position-relative z-index-50">
-      <button
-        class="button-image-profil position-relative"
-        mat-fab
-        color="primary"
-      >
+    <div class="flex relative z-50">
+      <button class="z-0 -mb-7 -ml-10 relative" mat-fab color="primary">
         <input
           type="file"
           placeholder="Choisir un fichier"
           name="fileInput"
-          class="input-picture"
+          class="h-full w-full top-0 left-0 opacity-0 absolute cursor-pointer z-50"
           (change)="onFileSelected($event, 'main')"
         />
-        <mat-icon class="z-index-0">camera_alt</mat-icon>
+        <mat-icon class="z-0">camera_alt</mat-icon>
+      </button>
+    </div>
+    <div class="bottom-0 right-5 absolute">
+      <button mat-raised-button>
+        <input
+          type="file"
+          placeholder="Choisir un fichier"
+          name="fileInput"
+          class="h-full w-full top-0 left-0 opacity-0 absolute cursor-pointer z-50"
+          (change)="onFileSelected($event, 'cover')"
+        />
+
+        <mat-icon>camera_alt</mat-icon
+        ><span class="font-light">Change the cover photo</span>
       </button>
     </div>
   </div>
-  <div
-    class="margin-top-100px display-flex justify-content-center font-weight-55px font-weight-bold margin-bottom-100"
-  >
+  <div class="mt-24 flex justify-center font-bold mb-24 text-6xl">
     {{ user.information.username | titlecase }}
   </div>
-  <div class="display-flex justify-content-right margin-rigth-50 gap-30">
+  <div class="flex justify-content-right mr-12 gap-7">
     <button
       mat-stroked-button
       color="accent"
@@ -52,29 +46,23 @@
       <mat-icon>delete</mat-icon> Delete
     </button>
   </div>
-  <div class="display-flex margin-50 gap-30">
-    <div
-      class="display-flex flex-direction-column width-100 padding-10 border-container"
-    >
-      <div class="color-primary font-weight-bold margin-bottom-25">
-        Pictures
-      </div>
-      <div class="display-flex margin-10 space-between">
+  <div class="flex m-12 gap-7">
+    <div class="flex flex-col w-full p-2 border-container rounded-xl">
+      <div class="color-primary font-bold mb-6">Pictures</div>
+      <div class="flex m-2 justify-between">
         <div *ngFor="let image of imageTab; let i = index">
-          <div class="image-list-container">
+          <div class="w-96 h-48">
             <div
-              class="picture-container display-flex justify-content-center align-items-center"
+              class="picture-border-container w-80 h-48 overflow-hidden relative flex justify-center items-center"
             >
               <div
                 *ngIf="!image"
-                class="display-flex flex-direction-column justify-content-center align-items-center height-100 width-100"
+                class="flex flex-col justify-center items-center h-full w-full"
               >
-                <div
-                  class="font-weight-bold text-decoration-underline font font-size-20"
-                >
+                <div class="font-bold underline text-xl">
                   Upload a profil picture
                 </div>
-                <div class="color-secondary font-size-12">
+                <div class="color-secondary text-sx">
                   .png or .jpg 1 Mo Maximum
                 </div>
               </div>
@@ -83,7 +71,7 @@
                 type="file"
                 placeholder="Choisir un fichier"
                 name="fileInput"
-                class="input-picture"
+                class="h-full w-full top-0 left-0 opacity-0 absolute cursor-pointer z-50"
                 (change)="onFileSelected($event, i)"
               />
             </div>
@@ -92,17 +80,10 @@
       </div>
     </div>
   </div>
-  <div class="display-flex margin-50 gap-30">
-    <div
-      class="display-flex flex-direction-column width-100 padding-10 border-container"
-    >
-      <div class="color-primary font-weight-bold margin-bottom-25">
-        My informations
-      </div>
-      <form
-        [formGroup]="informationsForm"
-        class="display-flex margin-10 space-around"
-      >
+  <div class="flex m-12 gap-7">
+    <div class="flex flex-col w-full p-2 border-container">
+      <div class="color-primary font-bold mb-6">My informations</div>
+      <form [formGroup]="informationsForm" class="flex m-2 space-around">
         <mat-form-field>
           <mat-label>Username</mat-label>
           <input matInput placeholder="Username" formControlName="username" />
@@ -132,21 +113,12 @@
       </form>
     </div>
   </div>
-  <div class="display-flex margin-50 gap-30">
-    <div
-      class="display-flex flex-direction-column width-100 padding-10 border-container"
-    >
-      <div class="color-primary font-weight-bold margin-bottom-25">
-        My interests
-      </div>
-      <form
-        [formGroup]="interestsForm"
-        class="display-flex margin-10 space-around"
-      >
-        <div
-          class="display-flex flex-direction-column height-100 align-items-center margin-top-20"
-        >
-          <div class="display-flex flex-direction-column height-100 gap-30">
+  <div class="flex m-12 gap-7">
+    <div class="flex flex-col w-full p-2 border-container">
+      <div class="color-primary font-bold mb-6">My interests</div>
+      <form [formGroup]="interestsForm" class="flex m-2 space-around">
+        <div class="flex flex-col h-full items-center mt-5">
+          <div class="flex flex-col h-full gap-7">
             <div fxLayout="row" fxLayoutAlign="start start">
               <div
                 *ngFor="let checkboxRow of checkboxRows"
@@ -164,27 +136,20 @@
         </div>
       </form>
     </div>
-    <div
-      class="display-flex flex-direction-column width-100 padding-10 border-container"
-    >
-      <div class="color-primary font-weight-bold margin-bottom-25">
-        My profil
-      </div>
-      <form
-        [formGroup]="profilForm"
-        class="display-flex margin-10 space-around"
-      >
-        <div class="display-flex flex-direction-column height-100">
-          <div class="grid-container height-100 gap-30">
-            <div class="display-flex flex-direction-column">
-              <mat-label class="font-weight-bold">Genre</mat-label>
+    <div class="flex flex-col w-full p-2 border-container">
+      <div class="color-primary font-bold mb-6">My profil</div>
+      <form [formGroup]="profilForm" class="flex m-2 space-around">
+        <div class="flex flex-col h-full">
+          <div class="grid-container h-full gap-7">
+            <div class="flex flex-col">
+              <mat-label class="font-bold">Genre</mat-label>
               <mat-radio-group formControlName="genre">
                 <mat-radio-button value="man">Man</mat-radio-button>
                 <mat-radio-button value="woman">Woman</mat-radio-button>
               </mat-radio-group>
             </div>
-            <div class="display-flex flex-direction-column">
-              <mat-label class="font-weight-bold">Sexual orientation</mat-label>
+            <div class="flex flex-col">
+              <mat-label class="font-bold">Sexual orientation</mat-label>
               <mat-radio-group formControlName="sexualOrientation">
                 <mat-radio-button value="heterosexual"
                   >Heterosexual</mat-radio-button
@@ -218,18 +183,12 @@
       </form>
     </div>
   </div>
-  <div class="display-flex margin-50 gap-30">
-    <div
-      class="display-flex flex-direction-column width-100 padding-10 border-container"
-    >
-      <div class="color-primary font-weight-bold margin-bottom-25">
-        My biographie
-      </div>
-      <div class="display-flex margin-10 space-around">
-        <div class="display-flex flex-direction-column height-100 width-100">
-          <div
-            class="display-flex flex-direction-column height-100 gap-30 width-100"
-          >
+  <div class="flex m-12 gap-7">
+    <div class="flex flex-col w-full p-2 border-container">
+      <div class="color-primary font-bold mb-6">My biographie</div>
+      <div class="flex m-2 space-around">
+        <div class="flex flex-col h-full w-full">
+          <div class="flex flex-col h-full gap-7 w-full">
             <mat-form-field appearance="fill">
               <textarea
                 class="text-area-height"
@@ -243,7 +202,7 @@
       </div>
     </div>
   </div>
-  <div class="display-flex margin-bottom-25 justify-content-center">
+  <div class="flex mb-6 justify-center">
     <button
       (click)="openDialogForUpdateUser()"
       class="color-white"
