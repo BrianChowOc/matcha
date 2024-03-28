@@ -8,4 +8,13 @@ export class CheckboxService {
     [{ label: 'Reading' }, { label: 'Paint' }, { label: 'Theater' }],
     [{ label: 'Games' }, { label: 'Travel' }, { label: 'Fashion' }],
   ];
+
+  checkboxRowsResponsive = [
+    [{ label: 'Sciences' }, { label: 'Photography' }],
+    [{ label: 'Cooking' }, { label: 'Music' }],
+    [{ label: 'DIY' }, { label: 'Sport' }],
+    [{ label: 'Reading' }, { label: 'Paint' }],
+    [{ label: 'Theater' }, { label: 'Games' }],
+    [{ label: 'Travel' }, { label: 'Fashion' }],
+  ];
 }

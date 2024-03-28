@@ -8,10 +8,12 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
+import { environment } from 'src/app/environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -26,6 +28,17 @@ export class AuthInterceptor implements HttpInterceptor {
         },
       });
     }
-    return next.handle(request);
+
+    return next.handle(request).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (
+          error.status === 401 &&
+          request.url !== `${environment.apiUrl}/auth/login`
+        ) {
+          this.router.navigateByUrl('/connexion');
+        }
+        return throwError(error);
+      })
+    );
   }
 }

@@ -11,7 +11,7 @@ import { ImagePreviewService } from 'src/app/core/services/image-preview.service
 import { UserService } from 'src/app/core/services/user.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { Observable, Subscription, map, tap } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
 
 @Component({
   selector: 'app-registration',
@@ -22,6 +22,7 @@ export class RegistrationComponent implements OnInit {
   private userSubscription: Subscription | undefined;
   isLinear = false;
   checkboxRows!: { label: string }[][];
+  checkboxRowsResponsive!: { label: string }[][];
 
   userImage!: File;
 
@@ -58,6 +59,7 @@ export class RegistrationComponent implements OnInit {
     this.initStep4Form();
     this.initMainForm();
     this.checkboxRows = this.checkboxService.checkboxRows;
+    this.checkboxRowsResponsive = this.checkboxService.checkboxRowsResponsive;
   }
 
   private initStep1Form(): void {

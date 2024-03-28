@@ -19,7 +19,7 @@
         <mat-icon class="z-0">camera_alt</mat-icon>
       </button>
     </div>
-    <div class="bottom-0 right-5 absolute">
+    <div class="bottom-0 right-5 absolute max-sm:top-5">
       <button mat-raised-button>
         <input
           type="file"
@@ -30,7 +30,7 @@
         />
 
         <mat-icon>camera_alt</mat-icon
-        ><span class="font-light">Change the cover photo</span>
+        ><span class="font-light">Change cover</span>
       </button>
     </div>
   </div>
@@ -43,17 +43,19 @@
       color="accent"
       (click)="openDialogForDeleteUser()"
     >
-      <mat-icon>delete</mat-icon> Delete
+      <mat-icon>delete</mat-icon> <span class="max-sm:hidden">Delete</span>
     </button>
   </div>
   <div class="flex m-12 gap-7">
     <div class="flex flex-col w-full p-2 border-container rounded-xl">
       <div class="color-primary font-bold mb-6">Pictures</div>
-      <div class="flex m-2 justify-between">
+      <div
+        class="flex m-2 justify-between max-sm:flex-col max-sm:items-center gap-4"
+      >
         <div *ngFor="let image of imageTab; let i = index">
-          <div class="w-96 h-48">
+          <div class="w-96 h-48 max-sm:w-full">
             <div
-              class="picture-border-container w-80 h-48 overflow-hidden relative flex justify-center items-center"
+              class="picture-border-container h-48 overflow-hidden relative flex justify-center items-center max-sm:w-60"
             >
               <div
                 *ngIf="!image"
@@ -83,7 +85,10 @@
   <div class="flex m-12 gap-7">
     <div class="flex flex-col w-full p-2 border-container">
       <div class="color-primary font-bold mb-6">My informations</div>
-      <form [formGroup]="informationsForm" class="flex m-2 space-around">
+      <form
+        [formGroup]="informationsForm"
+        class="flex m-2 space-around max-sm:flex-col"
+      >
         <mat-form-field>
           <mat-label>Username</mat-label>
           <input matInput placeholder="Username" formControlName="username" />
@@ -113,12 +118,12 @@
       </form>
     </div>
   </div>
-  <div class="flex m-12 gap-7">
+  <div class="flex m-12 gap-7 max-sm:flex-col">
     <div class="flex flex-col w-full p-2 border-container">
       <div class="color-primary font-bold mb-6">My interests</div>
       <form [formGroup]="interestsForm" class="flex m-2 space-around">
         <div class="flex flex-col h-full items-center mt-5">
-          <div class="flex flex-col h-full gap-7">
+          <div class="flex flex-col h-full gap-7 max-sm:hidden">
             <div fxLayout="row" fxLayoutAlign="start start">
               <div
                 *ngFor="let checkboxRow of checkboxRows"
@@ -128,6 +133,26 @@
                 <mat-checkbox
                   *ngFor="let checkbox of checkboxRow"
                   [formControlName]="checkbox.label.toLowerCase()"
+                  >{{ checkbox.label }}</mat-checkbox
+                >
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col h-full gap-8 sm:hidden">
+            <div
+              fxLayout="column"
+              fxLayoutAlign="start start"
+              class="sm:hidden sm:background-color-blue"
+            >
+              <div
+                *ngFor="let checkboxRow of checkboxRowsResponsive"
+                fxLayout="row"
+                fxLayoutGap="5px"
+              >
+                <mat-checkbox
+                  *ngFor="let checkbox of checkboxRow"
+                  [formControlName]="checkbox.label.toLowerCase()"
+                  class="w-24"
                   >{{ checkbox.label }}</mat-checkbox
                 >
               </div>
@@ -166,6 +191,7 @@
                 matInput
                 [matDatepicker]="picker"
                 formControlName="birth"
+                class="max-sm:text-ellipsis"
               />
               <mat-hint>DD/MM/YYYY</mat-hint>
               <mat-datepicker-toggle

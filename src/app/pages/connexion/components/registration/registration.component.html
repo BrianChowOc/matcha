@@ -39,7 +39,7 @@
             </div>
           </div>
         </form>
-        <div class="flex gap-8 justify-center">
+        <div class="flex gap-8 justify-center mt-5">
           <button
             mat-flat-button
             color="primary"
@@ -136,8 +136,8 @@
       </div>
       <form [formGroup]="step3Form">
         <ng-template matStepContent>
-          <div class="flex flex-col h-full items-center mt-5">
-            <div class="flex flex-col h-full gap-8">
+          <div class="flex flex-col h-full items-center mt-5 w-full">
+            <div class="flex flex-col h-full gap-8 max-sm:hidden">
               <div fxLayout="row" fxLayoutAlign="start start">
                 <div
                   *ngFor="let checkboxRow of checkboxRows"
@@ -147,6 +147,26 @@
                   <mat-checkbox
                     *ngFor="let checkbox of checkboxRow"
                     [formControlName]="checkbox.label.toLowerCase()"
+                    >{{ checkbox.label }}</mat-checkbox
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col h-full gap-8 sm:hidden">
+              <div
+                fxLayout="column"
+                fxLayoutAlign="start start"
+                class="sm:hidden"
+              >
+                <div
+                  *ngFor="let checkboxRow of checkboxRowsResponsive"
+                  fxLayout="row"
+                  fxLayoutGap="5px"
+                >
+                  <mat-checkbox
+                    *ngFor="let checkbox of checkboxRow"
+                    [formControlName]="checkbox.label.toLowerCase()"
+                    class="w-24"
                     >{{ checkbox.label }}</mat-checkbox
                   >
                 </div>
@@ -229,15 +249,12 @@
           <div class="flex flex-col h-full items-center">
             <div class="flex flex-col h-full gap-8">
               <div
-                class="border-container w-80 h-48 overflow-hidden flex justify-center items-center relative"
+                class="border-container sm:w-80 h-48 overflow-hidden flex justify-center items-center relative max-sm:w-72"
               >
                 <div
                   class="flex flex-col justify-center items-center h-full w-full"
                 >
-                  <div
-                    *ngIf="!userImage"
-                    class="font-bold underline font text-xl"
-                  >
+                  <div *ngIf="!userImage" class="font-bold underline text-xl">
                     Upload a profil picture
                   </div>
                   <div class="color-secondary text-xs">

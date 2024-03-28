@@ -46,6 +46,7 @@ export class ProfileComponent implements OnInit {
   image4Udpate!: File;
 
   checkboxRows!: { label: string }[][];
+  checkboxRowsResponsive!: { label: string }[][];
 
   passwordCtrl!: FormControl;
   confirmPasswordCtrl!: FormControl;
@@ -110,6 +111,7 @@ export class ProfileComponent implements OnInit {
 
       this.initMainForm();
       this.checkboxRows = this.checkboxService.checkboxRows;
+      this.checkboxRowsResponsive = this.checkboxService.checkboxRowsResponsive;
     });
   }
 
@@ -260,7 +262,6 @@ export class ProfileComponent implements OnInit {
     }
 
     formData.append('information', JSON.stringify(this.informationsForm.value));
-    console.log('profil', this.profilForm.value);
 
     formData.append('profil', JSON.stringify(this.profilForm.value));
     formData.append('interests', JSON.stringify(this.setInterestsTab()));

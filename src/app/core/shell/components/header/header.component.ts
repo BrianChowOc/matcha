@@ -3,6 +3,7 @@ import { User } from 'src/app/core/models/user.model';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ import { UserService } from 'src/app/core/services/user.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  user$ = this.userService.ownUser$;
+  user$!: Observable<User>;
 
   constructor(
     private authService: AuthService,
@@ -19,11 +20,16 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.user$ = this.userService.ownUser$;
     this.userService.getOwnUser();
   }
 
   onLogout() {
     this.authService.logout();
     this.router.navigateByUrl('/connexion');
+  }
+
+  redirectToHomePage() {
+    this.router.navigateByUrl('/');
   }
 }

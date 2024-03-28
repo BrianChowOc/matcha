@@ -1,6 +1,8 @@
-<mat-toolbar>
-  <span class="flex flex-auto color-secondary">MATCHA</span>
-  <div class="flex justify-around items-center h-16 w-96">
+<mat-toolbar *ngIf="user$ | async as user">
+  <span class="flex flex-auto color-secondary" (click)="redirectToHomePage()"
+    >MATCHA</span
+  >
+  <div class="flex justify-around items-center h-16 w-96 max-sm:hidden">
     <a routerLink="/">
       <mat-icon>home</mat-icon>
     </a>
@@ -20,7 +22,6 @@
   <mat-menu #menu="matMenu">
     <div
       class="flex justify-center items-center pt-2.5 pb-2.5 mx-1.5 mb-0.5 bg-[#F7F7FA]"
-      *ngIf="user$ | async as user"
     >
       <div class="w-24 h-24 overflow-hidden rounded-full">
         <img class="block h-full w-full" [src]="user.profilImg" />
