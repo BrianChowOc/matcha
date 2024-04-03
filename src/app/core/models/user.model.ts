@@ -19,4 +19,5 @@ export class User {
   picture3?: File;
   picture4?: File;
   backgroundImage?: File;
+  likes?: Array<string>;
 }

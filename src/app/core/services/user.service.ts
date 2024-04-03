@@ -79,4 +79,18 @@ export class UserService {
   deleteUser(id: string | null): Observable<User> {
     return this.http.delete<User>(`${environment.apiUrl}/user/${id}`);
   }
+
+  likeUser(userLikedId: string | undefined) {
+    return this.http.put<User>(
+      `${environment.apiUrl}/user/${this.authService.getUserId()}/like`,
+      { userLikedId }
+    );
+  }
+
+  unLikeUser(userLikedId: string | undefined) {
+    return this.http.put<User>(
+      `${environment.apiUrl}/user/${this.authService.getUserId()}/unlike`,
+      { userLikedId }
+    );
+  }
 }

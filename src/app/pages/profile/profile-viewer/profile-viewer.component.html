@@ -16,9 +16,16 @@
   </div>
   <div class="flex justify-content-right mr-12">
     <div class="flex gap-7">
-      <button mat-stroked-button color="accent" class="flex justify-center">
-        <mat-icon>favorite_border</mat-icon>
-        <span class="max-sm:hidden">Like</span></button
+      <button
+        mat-stroked-button
+        color="accent"
+        class="flex justify-center"
+        (click)="likeUser(user._id)"
+      >
+        <mat-icon *ngIf="!like">favorite_border</mat-icon>
+        <mat-icon *ngIf="like">favorite</mat-icon>
+        <span class="max-sm:hidden" *ngIf="!like">Like</span
+        ><span class="max-sm:hidden" *ngIf="like">Unlike</span></button
       ><button mat-stroked-button color="primary">
         <mat-icon>message</mat-icon> <span class="max-sm:hidden">Message</span>
       </button>

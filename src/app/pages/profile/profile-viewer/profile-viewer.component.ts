@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { User } from 'src/app/core/models/user.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
@@ -11,7 +12,9 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class ProfileViewerComponent implements OnInit {
   user$!: Observable<User>;
-  user!: User;
+  userId!: string;
+  like: boolean = false;
+  likeSubscription!: Subscription | undefined;
 
   interests!: string[];
 
@@ -24,6 +27,21 @@ export class ProfileViewerComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$ = this.userService.user$;
-    this.userService.getUserById(this.route.snapshot.params['id']);
+    this.userId = this.route.snapshot.params['id'];
+    this.userService.getUserById(this.userId);
+  }
+
+  likeUser(userId: string | undefined) {
+    if (!this.like) {
+      this.like = true;
+      this.likeSubscription = this.userService
+        .likeUser(userId)
+        .subscribe((res) => console.log(res));
+    } else {
+      this.like = false;
+      this.likeSubscription = this.userService
+        .unLikeUser(userId)
+        .subscribe((res) => console.log(res));
+    }
   }
 }

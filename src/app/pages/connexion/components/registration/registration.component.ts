@@ -180,7 +180,6 @@ export class RegistrationComponent implements OnInit {
       formData.append('profil', JSON.stringify(this.step2Form.value));
       formData.append('interests', JSON.stringify(this.setInterestsTab()));
       formData.append('biographie', this.step4Ctrl.value);
-
       this.userSubscription = this.userService
         .addUser(formData)
         .pipe(
